@@ -19,5 +19,6 @@ from django.conf.urls import patterns, include, url
 
 
 urlpatterns = patterns('appy_server.views',
-    url(r'^$', 'home')
+    url(r'^$', 'home'),
+    url(r'^upload/', 'upload_file')
 )
