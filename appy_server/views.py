@@ -17,23 +17,22 @@ def home(request):
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     user = forms.CharField(max_length=50)
-    file  = forms.FileField()
+    file  = forms.CharField()
 
-def handle_uploaded_file(form, f):
+def handle_uploaded_file(form):
     user = form.cleaned_data["user"]
     title = form.cleaned_data["title"]
+    file = form.cleaned_data["file"]
 
-    if not os.path.isdir(os.path.join(os.getcwd()) + "appy's/" + user):
+    if not os.path.isdir("appy's/" + user):
         os.mkdir('appy\'s/' + user)
 
-    with open("appy's/" + user + "/" + title, 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
+    with open("appy's/" + user + "/" + title, 'w') as destination:
+        destination.write(file)
 
 
 @csrf_exempt
 def upload_file(request):
-
     if request.method != 'POST':
         return HttpResponseNotAllowed('Only POST here')
 
@@ -41,6 +40,6 @@ def upload_file(request):
     if not form.is_valid():
         return HttpResponseServerError("Invalid call")
 
-
-    handle_uploaded_file(form, request.FILES['file'])
+    #handle_uploaded_file(form, request.FILES['file'])
+    handle_uploaded_file(form)
     return HttpResponse('OK')

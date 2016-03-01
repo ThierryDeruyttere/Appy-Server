@@ -48,6 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'appy_server.middleware.django-crossdomainxhr-middleware.XsSharing'
 )
 
 ROOT_URLCONF = 'appy_server.urls'
