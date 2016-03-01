@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
 import os
 
+
 @xframe_options_exempt
 def home(request):
     return render(request, 'output.html')
@@ -27,9 +28,20 @@ def handle_uploaded_file(form):
     if not os.path.isdir("appy's/" + user):
         os.mkdir('appy\'s/' + user)
 
-    with open("appy's/" + user + "/" + title, 'w') as destination:
+
+    if not os.path.isdir("appy's/" + user + "/" + title):
+        os.mkdir('appy\'s/' + user + "/" + title)
+
+
+    with open("appy's/" + user + "/" + title + "/" + title + ".json", 'w') as destination:
         destination.write(file)
 
+    path = "appy's/" + user + "/" + title + "/" + title + ".json"
+    path = path.translate(str.maketrans({" ": "\ ",
+                                         "'": "\\'",
+                                         "\\": "\\\\"}))
+
+    os.system("./convert.sh " + path)
 
 @csrf_exempt
 def upload_file(request):

@@ -13,14 +13,14 @@ Handlebars.registerHelper('json', function(context) {
 // To test this file you can just run "node exporter.js file"
 // Add new templates here
 var templates = {
-  Button: Handlebars.compile(fs.readFileSync("./templates/HTML/button.html").toString()),
-  Image: Handlebars.compile(fs.readFileSync("./templates/HTML/image.html").toString()),
-  Label: Handlebars.compile(fs.readFileSync("./templates/HTML/label.html").toString()),
-  Textbox: Handlebars.compile(fs.readFileSync("./templates/HTML/textbox.html").toString()),
-  Plus: Handlebars.compile(fs.readFileSync("./templates/js/plus.js").toString()),
+  Button: Handlebars.compile(fs.readFileSync("export/templates/HTML/button.html").toString()),
+  Image: Handlebars.compile(fs.readFileSync("export/templates/HTML/image.html").toString()),
+  Label: Handlebars.compile(fs.readFileSync("export/templates/HTML/label.html").toString()),
+  Textbox: Handlebars.compile(fs.readFileSync("export/templates/HTML/textbox.html").toString()),
+  Plus: Handlebars.compile(fs.readFileSync("export/templates/js/plus.js").toString()),
 }
 
-var appTemplate = Handlebars.compile(fs.readFileSync("./templates/HTML/app_page.html").toString());
+var appTemplate = Handlebars.compile(fs.readFileSync("export/templates/HTML/app_page.html").toString());
 
 function parseProperties(appDescription) {
   for(comp in appDescription.components) {
@@ -51,6 +51,7 @@ function setTriggerBinding(func) {
 
 // Read json file
 if(process.argv[2]) {
+  console.log(process.argv[2]);
   var appDescription = JSON.parse(fs.readFileSync(process.argv[2]).toString());
   appDescription = parseProperties(appDescription);
   appDescription.logic.methods = {}
@@ -87,7 +88,8 @@ if(process.argv[2]) {
 
   //Write HTML output to file
   //console.log(appTemplate(appDescription));
-  fs.writeFileSync("./output.html", appTemplate(appDescription))
+  var path_array = process.argv[2].split(".");
+  fs.writeFileSync(path_array[0]+".html", appTemplate(appDescription))
 }
 else {
   console.log("no input file");
