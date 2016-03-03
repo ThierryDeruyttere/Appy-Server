@@ -9,7 +9,7 @@ from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
 import os
-
+import shutil
 
 @xframe_options_exempt
 def home(request):
@@ -18,7 +18,7 @@ def home(request):
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     user = forms.CharField(max_length=50)
-    file  = forms.CharField()
+    file = forms.CharField()
 
 def handle_uploaded_file(form):
     user = form.cleaned_data["user"]
@@ -28,13 +28,12 @@ def handle_uploaded_file(form):
     if not os.path.isdir("appy's/" + user):
         os.mkdir('appy\'s/' + user)
 
-
     if not os.path.isdir("appy's/" + user + "/" + title):
         os.mkdir('appy\'s/' + user + "/" + title)
 
-
     with open("appy's/" + user + "/" + title + "/" + title + ".json", 'w') as destination:
         destination.write(file)
+        shutil.copy("appy's/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
 
     path = "appy's/" + user + "/" + title + "/" + title + ".json"
     path = path.translate(str.maketrans({" ": "\ ",
@@ -52,6 +51,6 @@ def upload_file(request):
     if not form.is_valid():
         return HttpResponseServerError("Invalid call")
 
-    #handle_uploaded_file(form, request.FILES['file'])
+    # handle_uploaded_file(form, request.FILES['file'])
     handle_uploaded_file(form)
     return HttpResponse('OK')

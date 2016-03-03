@@ -13,39 +13,18 @@
   <body>
     <app>
       <div>
-        <button class="btn" :style="{width: Button0.width+'%', height: Button0.height+'%'}"
+        <button class="btn" :style="{width: +'%', height: +'%'}"
         v-text="Button0.name"
-        @click="Plus1_method">
+        @click="">
 </button>
 
       </div>
       <div>
-        <div class="label"
-     v-text="Plus1.result"
-     v-show="Label1.visibility">
-</div>
+        <button class="btn" :style="{width: +'%', height: +'%'}"
+        v-text="Button1.name"
+        @click="">
+</button>
 
-      </div>
-      <div>
-        <div class="input-field">
-  <input type="text" class="validate" :style="{width: Textbox2.width+'%', height: Textbox2.height+'%'}"
-         v-model="Textbox2.name"
-         v-show="Textbox2.visibility">
-  </input>
-</div>
-
-      </div>
-      <div>
-        <div class="input-field">
-  <input type="text" class="validate" :style="{width: Textbox3.width+'%', height: Textbox3.height+'%'}"
-         v-model="Textbox3.name"
-         v-show="Textbox3.visibility">
-  </input>
-</div>
-
-      </div>
-      <div>
-        
       </div>
 
     </app>
@@ -59,11 +38,8 @@
       var vm = new Vue({
         el: 'app',
         data: {
-          Button0: {"visibility":true,"name":"Sample text","width":50,"height":50},
-          Label1: {"visibility":true,"name":"Sample text","width":50,"height":50},
-          Textbox2: {"visibility":true,"name":"Sample text","width":50,"height":50},
-          Textbox3: {"visibility":true,"name":"Sample text","width":50,"height":50},
-          Plus1: {"result":null},
+          Button0: {"visibility":true,"dim":{},"name":"Sample text"},
+          Button1: {"visibility":true,"dim":{},"name":"Sample text"},
         },
         computed: {
           // computed_1: function() {
@@ -71,11 +47,6 @@
           // }
         },
         methods: {
-          Plus1_method: function() {
-  this.Plus1.result = this.Textbox2.name + this.Textbox3.name;
-  return null;
-}
-,
           // method_1: function() {
           //   this.component_4.properties.name.value = this.computed_1
           // }
