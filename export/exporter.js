@@ -2,7 +2,6 @@ Handlebars = require('handlebars');
 fs = require('fs');
 _ = require('underscore');
 
-
 // Register Handlebars helper to stringify json
 // Use: {{{json object}}}
 // Source: http://stackoverflow.com/a/10233247
@@ -18,6 +17,7 @@ var templates = {
   Label: Handlebars.compile(fs.readFileSync("export/templates/HTML/label.html").toString()),
   Textbox: Handlebars.compile(fs.readFileSync("export/templates/HTML/textbox.html").toString()),
   Plus: Handlebars.compile(fs.readFileSync("export/templates/js/plus.js").toString()),
+  GotoPage: Handlebars.compile(fs.readFileSync("export/templates/js/gotopage.js").toString()),
 }
 
 var appTemplate = Handlebars.compile(fs.readFileSync("export/templates/HTML/app_page.html").toString());
@@ -51,7 +51,6 @@ function setTriggerBinding(func) {
 
 // Read json file
 if(process.argv[2]) {
-  console.log(process.argv[2]);
   var appDescription = JSON.parse(fs.readFileSync(process.argv[2]).toString());
   appDescription = parseProperties(appDescription);
   appDescription.logic.methods = {}
@@ -77,19 +76,29 @@ if(process.argv[2]) {
     appDescription.components[f].properties = {result: null};
   }
 
+  // Pages
+  appDescription.pages = appDescription.pages || {};
+  appDescription.pageNames.forEach(function(pageName) {
+    appDescription.pages[pageName] = {}
+    appDescription.pages[pageName].components = {}
+  });
+
+  // Components
   for(comp in appDescription.components) {
     component = appDescription.components[comp];
-    //console.log(component.type);
 
     // TODO: if we change this to coffeescript:
     // component.html = templates[component.type]?(component.binding);
     component.html = typeof templates[component.type] === "function" ? templates[component.type](component.binding) : void 0;
+
+    if(component.page) {
+      appDescription.pages[component.page].components[comp] = component;
+    }
   }
 
   //Write HTML output to file
   //console.log(appTemplate(appDescription));
-  var path_array = process.argv[2].split(".");
-  fs.writeFileSync(path_array[0]+".html", appTemplate(appDescription))
+  fs.writeFileSync("export/output.html", appTemplate(appDescription))
 }
 else {
   console.log("no input file");
