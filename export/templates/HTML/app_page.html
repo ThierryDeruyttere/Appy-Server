@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width: 100%; height: 100%;">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,12 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
   </head>
-  <body>
-    <app>
+  <body style="width: 100%; height: 100%;">
+    <app style="width: 100%; height: 100%;">
       {{#each pages}}
-      <div class="page" v-if="activePage == '{{@key}}'">
+      <div class="page" v-if="activePage == '{{@key}}'" style="width: 100%; height: 100%;">
         {{#each this.components}}
-        <div>
+        <div style="position: absolute; width: 100%; height: 100%;">
           {{{this.html}}}
         </div>
         {{/each}}
@@ -36,6 +36,7 @@
         el: 'app',
         data: {
           activePage: 'Page0',
+          app: {{{json info}}},
           {{#each components}}
           {{@key}}: {{{json this.properties}}},
           {{/each}}

@@ -78,7 +78,7 @@ if(process.argv[2]) {
 
   // Pages
   appDescription.pages = appDescription.pages || {};
-  appDescription.pageNames.forEach(function(pageName) {
+  appDescription.info.pageNames.forEach(function(pageName) {
     appDescription.pages[pageName] = {}
     appDescription.pages[pageName].components = {}
   });
@@ -91,8 +91,8 @@ if(process.argv[2]) {
     // component.html = templates[component.type]?(component.binding);
     component.html = typeof templates[component.type] === "function" ? templates[component.type](component.binding) : void 0;
 
-    if(component.page) {
-      appDescription.pages[component.page].components[comp] = component;
+    if(component.properties.page) {
+      appDescription.pages[component.properties.page].components[comp] = component;
     }
   }
 

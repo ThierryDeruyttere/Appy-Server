@@ -1,110 +1,147 @@
 {
+  "info": {
+    "width": 4,
+    "height": 6,
+    "pageNames": [
+      "Page0"
+    ]
+  },
   "components": {
     "Button0": {
+      "type": "Button",
       "properties": {
         "visibility": {
           "name": "Visible",
           "value": true,
-          "type": "checkbox"
+          "type": "switch"
+        },
+        "dim": {
+          "value": {
+            "row": 0,
+            "col": 0,
+            "width": 2,
+            "height": 2
+          },
+          "type": "hidden"
         },
         "name": {
-          "name": "Value",
+          "name": "Text",
           "value": "Sample text",
           "type": "text"
         },
-        "width": {
-          "value": 50
-        },
-        "height": {
-          "value": 50
+        "page": {
+          "value": "Page0"
         }
-      },
-      "type": "Button"
+      }
     },
     "Label1": {
+      "type": "Label",
       "properties": {
         "visibility": {
           "name": "Visible",
           "value": true,
-          "type": "checkbox"
+          "type": "switch"
+        },
+        "dim": {
+          "value": {
+            "row": 0,
+            "col": 2,
+            "width": 2,
+            "height": 1
+          },
+          "type": "hidden"
         },
         "name": {
-          "name": "Value",
-          "value": "Sample text",
-          "type": "text",
-          "input": "Plus1.result"
-        },
-        "width": {
-          "value": 50
-        },
-        "height": {
-          "value": 50
-        }
-      },
-      "type": "Label"
-    },
-    "Textbox2": {
-      "properties": {
-        "visibility": {
-          "name": "Visible",
-          "value": true,
-          "type": "checkbox"
-        },
-        "name": {
-          "name": "Value",
-          "value": "Sample text",
+          "name": "Text",
+          "value": "Tekst hier",
           "type": "text"
         },
-        "width": {
-          "value": 50
-        },
-        "height": {
-          "value": 50
+        "page": {
+          "value": "Page0"
         }
-      },
-      "type": "Textbox"
+      }
     },
-    "Textbox3": {
+    "Button2": {
+      "type": "Button",
       "properties": {
         "visibility": {
           "name": "Visible",
           "value": true,
-          "type": "checkbox"
+          "type": "switch"
+        },
+        "dim": {
+          "value": {
+            "row": 1,
+            "col": 2,
+            "width": 1,
+            "height": 2
+          },
+          "type": "hidden"
         },
         "name": {
-          "name": "Value",
-          "value": "Sample text",
+          "name": "Text",
+          "value": "S",
           "type": "text"
         },
-        "width": {
-          "value": 50
-        },
-        "height": {
-          "value": 50
+        "page": {
+          "value": "Page0"
         }
-      },
-      "type": "Textbox"
+      }
+    },
+    "Button3": {
+      "type": "Button",
+      "properties": {
+        "visibility": {
+          "name": "Visible",
+          "value": true,
+          "type": "switch"
+        },
+        "dim": {
+          "value": {
+            "row": 4,
+            "col": 0,
+            "width": 3,
+            "height": 2
+          },
+          "type": "hidden"
+        },
+        "name": {
+          "name": "Text",
+          "value": "Butttttoon",
+          "type": "text"
+        },
+        "page": {
+          "value": "Page0"
+        }
+      }
+    },
+    "Button4": {
+      "type": "Button",
+      "properties": {
+        "visibility": {
+          "name": "Visible",
+          "value": true,
+          "type": "switch"
+        },
+        "dim": {
+          "value": {
+            "row": 2,
+            "col": 3,
+            "width": 1,
+            "height": 3
+          },
+          "type": "hidden"
+        },
+        "name": {
+          "name": "Text",
+          "value": "GG",
+          "type": "text"
+        },
+        "page": {
+          "value": "Page0"
+        }
+      }
     }
   },
-  "logic": {
-    "triggers": {
-      "Trigger1": {
-        "component": "Button0",
-        "action": "click"
-      }
-    },
-    "functions": {
-      "Plus1": {
-        "triggers": ["Trigger1"],
-        "parameters": {
-          "right": "Textbox3.name",
-          "left": "Textbox2.name"
-        },
-        "outputs": {
-          "result": "Label1.name"
-        },
-        "type": "Plus"
-      }
-    }
-  }
+  "logic": {}
 }

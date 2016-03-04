@@ -1,5 +1,5 @@
-<div class="input-field">
-  <input type="text" class="validate" :style="{width: {{width}}+'%', height: {{height}}+'%'}"
+<div class="input-field" style="position: absolute; width: 100%; height: 100%;">
+  <input type="text" class="validate" :style="{position: 'absolute', width: {{dim}}.width/app.width*100+'%', height: {{dim}}.height/app.height*100+'%', top: {{dim}}.row/app.height*100+'%', left: {{dim}}.col/app.width*100+'%'}"
          v-model="{{name}}"
          v-show="{{visibility}}">
   </input>
