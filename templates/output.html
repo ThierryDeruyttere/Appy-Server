@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width: 100%; height: 100%;">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,21 +10,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
   </head>
-  <body>
-    <app>
-      <div>
-        <button class="btn" :style="{width: +'%', height: +'%'}"
+  <body style="width: 100%; height: 100%;">
+    <app style="width: 100%; height: 100%;">
+      <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
+        <div style="position: absolute; width: 100%; height: 100%;">
+          <button class="btn" :style="{position: 'absolute', width: Button0.dim.width/app.width*100+'%', height: Button0.dim.height/app.height*100+'%', top: Button0.dim.row/app.height*100+'%', left: Button0.dim.col/app.width*100+'%'}"
         v-text="Button0.name"
         @click="">
 </button>
 
-      </div>
-      <div>
-        <button class="btn" :style="{width: +'%', height: +'%'}"
+        </div>
+        <div style="position: absolute; width: 100%; height: 100%;">
+          <button class="btn" :style="{position: 'absolute', width: Button1.dim.width/app.width*100+'%', height: Button1.dim.height/app.height*100+'%', top: Button1.dim.row/app.height*100+'%', left: Button1.dim.col/app.width*100+'%'}"
         v-text="Button1.name"
         @click="">
 </button>
 
+        </div>
+        <div style="position: absolute; width: 100%; height: 100%;">
+          <button class="btn" :style="{position: 'absolute', width: Button2.dim.width/app.width*100+'%', height: Button2.dim.height/app.height*100+'%', top: Button2.dim.row/app.height*100+'%', left: Button2.dim.col/app.width*100+'%'}"
+        v-text="Button2.name"
+        @click="">
+</button>
+
+        </div>
+        <div style="position: absolute; width: 100%; height: 100%;">
+          <button class="btn" :style="{position: 'absolute', width: Button3.dim.width/app.width*100+'%', height: Button3.dim.height/app.height*100+'%', top: Button3.dim.row/app.height*100+'%', left: Button3.dim.col/app.width*100+'%'}"
+        v-text="Button3.name"
+        @click="">
+</button>
+
+        </div>
       </div>
 
     </app>
@@ -34,22 +50,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script>
       Vue.config.debug = true
-
       var vm = new Vue({
         el: 'app',
         data: {
-          Button0: {"visibility":true,"dim":{},"name":"Sample text"},
-          Button1: {"visibility":true,"dim":{},"name":"Sample text"},
+          activePage: 'Page0',
+          app: {"width":4,"height":6,"pageNames":["Page0"]},
+          Button0: {"visibility":true,"dim":{"row":0,"col":0,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button1: {"visibility":true,"dim":{"row":0,"col":1,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button2: {"visibility":true,"dim":{"row":1,"col":2,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button3: {"visibility":true,"dim":{"row":0,"col":3,"width":1,"height":1},"page":"Page0","name":"Sample text"},
         },
         computed: {
-          // computed_1: function() {
-          //   return this.component_2.properties.name.value + " and " + this.component_3.properties.name.value
-          // }
         },
         methods: {
-          // method_1: function() {
-          //   this.component_4.properties.name.value = this.computed_1
-          // }
         },
       })
     </script>

@@ -98,7 +98,8 @@ if(process.argv[2]) {
 
   //Write HTML output to file
   //console.log(appTemplate(appDescription));
-  fs.writeFileSync("export/output.html", appTemplate(appDescription))
+  var path_array = process.argv[2].split(".");
+  fs.writeFileSync(path_array[0]+".html", appTemplate(appDescription))
 }
 else {
   console.log("no input file");

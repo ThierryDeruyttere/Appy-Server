@@ -33,14 +33,14 @@ def handle_uploaded_file(form):
 
     with open("appy's/" + user + "/" + title + "/" + title + ".json", 'w') as destination:
         destination.write(file)
-        shutil.copy("appy's/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
 
     path = "appy's/" + user + "/" + title + "/" + title + ".json"
     path = path.translate(str.maketrans({" ": "\ ",
                                          "'": "\\'",
                                          "\\": "\\\\"}))
 
-    os.system("./convert.sh " + path)
+    response = os.system("./convert.sh " + path)
+    shutil.copy("appy's/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
 
 @csrf_exempt
 def upload_file(request):

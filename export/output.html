@@ -21,11 +21,10 @@
 
         </div>
         <div style="position: absolute; width: 100%; height: 100%;">
-          <div class="label"
-     v-text="Label1.name"
-     v-show="Label1.visibility"
-     :style="{position: 'absolute', overflow: 'hidden', width: Label1.dim.width/app.width*100+'%', height: Label1.dim.height/app.height*100+'%', top: Label1.dim.row/app.height*100+'%', left: Label1.dim.col/app.width*100+'%'}">
-</div>
+          <button class="btn" :style="{position: 'absolute', width: Button1.dim.width/app.width*100+'%', height: Button1.dim.height/app.height*100+'%', top: Button1.dim.row/app.height*100+'%', left: Button1.dim.col/app.width*100+'%'}"
+        v-text="Button1.name"
+        @click="">
+</button>
 
         </div>
         <div style="position: absolute; width: 100%; height: 100%;">
@@ -38,13 +37,6 @@
         <div style="position: absolute; width: 100%; height: 100%;">
           <button class="btn" :style="{position: 'absolute', width: Button3.dim.width/app.width*100+'%', height: Button3.dim.height/app.height*100+'%', top: Button3.dim.row/app.height*100+'%', left: Button3.dim.col/app.width*100+'%'}"
         v-text="Button3.name"
-        @click="">
-</button>
-
-        </div>
-        <div style="position: absolute; width: 100%; height: 100%;">
-          <button class="btn" :style="{position: 'absolute', width: Button4.dim.width/app.width*100+'%', height: Button4.dim.height/app.height*100+'%', top: Button4.dim.row/app.height*100+'%', left: Button4.dim.col/app.width*100+'%'}"
-        v-text="Button4.name"
         @click="">
 </button>
 
@@ -63,11 +55,10 @@
         data: {
           activePage: 'Page0',
           app: {"width":4,"height":6,"pageNames":["Page0"]},
-          Button0: {"visibility":true,"dim":{"row":0,"col":0,"width":2,"height":2},"name":"Sample text","page":"Page0"},
-          Label1: {"visibility":true,"dim":{"row":0,"col":2,"width":2,"height":1},"name":"Tekst hier","page":"Page0"},
-          Button2: {"visibility":true,"dim":{"row":1,"col":2,"width":1,"height":2},"name":"S","page":"Page0"},
-          Button3: {"visibility":true,"dim":{"row":4,"col":0,"width":3,"height":2},"name":"Butttttoon","page":"Page0"},
-          Button4: {"visibility":true,"dim":{"row":2,"col":3,"width":1,"height":3},"name":"GG","page":"Page0"},
+          Button0: {"visibility":true,"dim":{"row":0,"col":0,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button1: {"visibility":true,"dim":{"row":0,"col":1,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button2: {"visibility":true,"dim":{"row":0,"col":2,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button3: {"visibility":true,"dim":{"row":0,"col":3,"width":1,"height":1},"page":"Page0","name":"Sample text"},
         },
         computed: {
         },
