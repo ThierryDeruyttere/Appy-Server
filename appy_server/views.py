@@ -32,20 +32,20 @@ def handle_uploaded_file(form):
     title = form.cleaned_data["title"]
     file = form.cleaned_data["file"]
 
-    if not os.path.isdir("appy's/" + user):
-        os.mkdir('appy\'s/' + user)
+    if not os.path.isdir("appys/" + user):
+        os.mkdir('appys/' + user)
 
-    if not os.path.isdir("appy's/" + user + "/" + title):
-        os.mkdir('appy\'s/' + user + "/" + title)
+    if not os.path.isdir("appys/" + user + "/" + title):
+        os.mkdir('appys/' + user + "/" + title)
 
-    with open("appy's/" + user + "/" + title + "/" + title + ".json", 'w') as destination:
+    with open("appys/" + user + "/" + title + "/" + title + ".json", 'w') as destination:
         destination.write(file)
 
-    path = "appy's/" + user + "/" + title + "/" + title + ".json"
+    path = "appys/" + user + "/" + title + "/" + title + ".json"
     path = escapeString(path)
 
     response = os.system("./convert.sh " + path)
-    shutil.copy("appy's/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
+    shutil.copy("appys/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
     return user, title
 
 @csrf_exempt
@@ -67,7 +67,7 @@ def get_qr(request, user, appy):
     # http://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
     import socket
     ip = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
-    path = ip+":8000/"+ "appy's/" + user + "/" + appy + ".html"
+    path = ip+":8000/"+ "appys/" + user + "/" + appy + ".html"
     path = escapeString(path)
     data = {"link": path, "author": user, "version": "1.0.0", "title": appy}
     return render(request, "qr.html", {"data": json.dumps(data)})
