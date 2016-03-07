@@ -20,6 +20,12 @@ class UploadFileForm(forms.Form):
     user = forms.CharField(max_length=50)
     file = forms.CharField()
 
+def escapeString(string):
+    return string.translate(str.maketrans({" ": "\ ",
+                                         "'": "\\'",
+                                         "\\": "\\\\"}))
+
+
 def handle_uploaded_file(form):
     user = form.cleaned_data["user"]
     title = form.cleaned_data["title"]
@@ -35,12 +41,11 @@ def handle_uploaded_file(form):
         destination.write(file)
 
     path = "appy's/" + user + "/" + title + "/" + title + ".json"
-    path = path.translate(str.maketrans({" ": "\ ",
-                                         "'": "\\'",
-                                         "\\": "\\\\"}))
+    path = escapeString(path)
 
     response = os.system("./convert.sh " + path)
     shutil.copy("appy's/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
+
 
 @csrf_exempt
 def upload_file(request):
@@ -54,3 +59,12 @@ def upload_file(request):
     # handle_uploaded_file(form, request.FILES['file'])
     handle_uploaded_file(form)
     return HttpResponse('OK')
+
+
+def get_qr(request, user, appy):
+    path =  "appy's/" + user + "/" + user + "/" + appy + ".html"
+    path = escapeString(path)
+    return render(request, "qr.html", {"path": path})
+
+def serve_appy(request, user, appy):
+    return render(request, "output.html", {})

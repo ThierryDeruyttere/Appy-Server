@@ -20,5 +20,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('appy_server.views',
     url(r'^$', 'home'),
-    url(r'^upload/', 'upload_file')
+    url(r'^upload/', 'upload_file'),
+    url(r'^apps/qr/(?P<user>[a-z+]*)/(?P<appy>[a-z+]*)', 'get_qr'),
+    url(r'^apps/(?P<user>[a-z+]*)/(?P<appy>[a-z+]*)', 'serve_appy')
 )
