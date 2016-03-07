@@ -20,7 +20,7 @@ window.$.fn.createQR = function(id){
           maxVersion: 40,
 
           // error correction level: 'L', 'M', 'Q' or 'H'
-          ecLevel: 'L',
+          ecLevel: 'H',
 
           // offset in pixel if drawn onto existing canvas
           left: 0,

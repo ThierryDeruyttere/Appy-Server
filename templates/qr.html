@@ -19,7 +19,7 @@
 </canvas>
 </body>
 <script>
-    $("#qr").createQR("{{ path | safe }}");
+    $("#qr").createQR({{ data | safe }});
 </script>
 </html>
 

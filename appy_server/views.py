@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
 import os
 import shutil
+import json
 
 @xframe_options_exempt
 def home(request):
@@ -63,11 +64,13 @@ def upload_file(request):
 
 
 def get_qr(request, user, appy):
+    # http://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
     import socket
     ip = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
-    path = ip+":8000/"+ "appy's/" + user + "/" + user + "/" + appy + ".html"
+    path = ip+":8000/"+ "appy's/" + user + "/" + appy + ".html"
     path = escapeString(path)
-    return render(request, "qr.html", {"path": path})
+    data = {"link": path, "author": user, "version": "1.0.0", "title": appy}
+    return render(request, "qr.html", {"data": json.dumps(data)})
 
 def serve_appy(request, user, appy):
     return render(request, "output.html", {})
