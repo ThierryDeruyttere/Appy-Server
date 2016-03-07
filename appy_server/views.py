@@ -45,7 +45,7 @@ def handle_uploaded_file(form):
 
     response = os.system("./convert.sh " + path)
     shutil.copy("appy's/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
-
+    return user, title
 
 @csrf_exempt
 def upload_file(request):
@@ -57,12 +57,15 @@ def upload_file(request):
         return HttpResponseServerError("Invalid call")
 
     # handle_uploaded_file(form, request.FILES['file'])
-    handle_uploaded_file(form)
+    user, appy = handle_uploaded_file(form)
+
     return HttpResponse('OK')
 
 
 def get_qr(request, user, appy):
-    path =  "appy's/" + user + "/" + user + "/" + appy + ".html"
+    import socket
+    ip = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
+    path = ip+":8000/"+ "appy's/" + user + "/" + user + "/" + appy + ".html"
     path = escapeString(path)
     return render(request, "qr.html", {"path": path})
 
