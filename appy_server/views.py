@@ -73,6 +73,6 @@ def get_qr(request, user, appy):
 
 @xframe_options_exempt
 def serve_appy(request, user, appy):
-    file = user + "/" + appy +".html"
-    print(file)
+    file = user + "/" + appy +"/"+ appy +".html"
+
     return render(request, file, {})
