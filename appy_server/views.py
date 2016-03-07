@@ -67,7 +67,7 @@ def get_qr(request, user, appy):
     # http://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
     import socket
     ip = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
-    path = ip+":8000/"+ "appys/" + user + "/" + appy + ".html"
+    path = ip+":8000/"+ "apps/" + user + "/" + appy + ".html"
     path = escapeString(path)
     data = {"link": path, "author": user, "version": "1.0.0", "title": appy}
     return render(request, "qr.html", {"data": json.dumps(data)})
