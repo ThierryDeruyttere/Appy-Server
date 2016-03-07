@@ -3,8 +3,8 @@ import os
 import sys
 
 if __name__ == "__main__":
-    if not os.path.isdir("appy's/"):
-        os.mkdir("appy's/")
+    if not os.path.isdir("appys/"):
+        os.mkdir("appys/")
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "appy_server.settings")
 
