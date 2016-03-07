@@ -62,7 +62,6 @@ def upload_file(request):
 
     return HttpResponse('OK')
 
-
 def get_qr(request, user, appy):
     # http://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
     import socket
@@ -72,5 +71,6 @@ def get_qr(request, user, appy):
     data = {"link": path, "author": user, "version": "1.0.0", "title": appy}
     return render(request, "qr.html", {"data": json.dumps(data)})
 
+@xframe_options_exempt
 def serve_appy(request, user, appy):
     return render(request, "output.html", {})
