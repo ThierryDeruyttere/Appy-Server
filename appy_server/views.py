@@ -60,19 +60,25 @@ def upload_file(request):
     # handle_uploaded_file(form, request.FILES['file'])
     user, appy = handle_uploaded_file(form)
 
-    return HttpResponse('OK')
+    import socket
+    ip = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
+    path = ip + ":8000/" + "apps/" + user + "/" + appy + "/" + appy + ".html"
+    path = escapeString(path)
+    data = {"link": path, "author": user, "version": "1.0.0", "title": appy}
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 def get_qr(request, user, appy):
     # http://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
     import socket
     ip = [l for l in ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1], [[(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]]) if l][0][0]
-    path = ip+":8000/"+ "apps/" + user + "/" + appy + "/" + appy + ".html"
+    path = ip + ":8000/" + "apps/" + user + "/" + appy + "/" + appy + ".html"
     path = escapeString(path)
     data = {"link": path, "author": user, "version": "1.0.0", "title": appy}
-    return render(request, "qr.html", {"data": json.dumps(data)})
+    # return render(request, "qr.html", {"data": json.dumps(data)})
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 @xframe_options_exempt
 def serve_appy(request, user, appy):
-    file = user + "/" + appy +"/"+ appy +".html"
+    file = user + "/" + appy + "/" + appy + ".html"
 
     return render(request, file, {})

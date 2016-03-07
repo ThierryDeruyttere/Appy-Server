@@ -27,20 +27,6 @@
 </button>
 
         </div>
-        <div style="position: absolute; width: 100%; height: 100%;">
-          <button class="btn" :style="{position: 'absolute', width: Button2.dim.width/app.width*100+'%', height: Button2.dim.height/app.height*100+'%', top: Button2.dim.row/app.height*100+'%', left: Button2.dim.col/app.width*100+'%'}"
-        v-text="Button2.name"
-        @click="">
-</button>
-
-        </div>
-        <div style="position: absolute; width: 100%; height: 100%;">
-          <button class="btn" :style="{position: 'absolute', width: Button3.dim.width/app.width*100+'%', height: Button3.dim.height/app.height*100+'%', top: Button3.dim.row/app.height*100+'%', left: Button3.dim.col/app.width*100+'%'}"
-        v-text="Button3.name"
-        @click="">
-</button>
-
-        </div>
       </div>
 
     </app>
@@ -55,10 +41,8 @@
         data: {
           activePage: 'Page0',
           app: {"width":4,"height":6,"pageNames":["Page0"]},
-          Button0: {"visibility":true,"dim":{"row":0,"col":0,"width":1,"height":1},"page":"Page0","name":"Sample text"},
-          Button1: {"visibility":true,"dim":{"row":0,"col":1,"width":1,"height":1},"page":"Page0","name":"Sample text"},
-          Button2: {"visibility":true,"dim":{"row":1,"col":2,"width":1,"height":1},"page":"Page0","name":"Sample text"},
-          Button3: {"visibility":true,"dim":{"row":0,"col":3,"width":1,"height":1},"page":"Page0","name":"Sample text"},
+          Button0: {"visibility":true,"dim":{"row":0,"col":0,"width":4,"height":1},"page":"Page0","name":"Sample text"},
+          Button1: {"visibility":true,"dim":{"row":1,"col":0,"width":4,"height":5},"page":"Page0","name":"Sample text"},
         },
         computed: {
         },
