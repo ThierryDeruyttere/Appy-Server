@@ -15,9 +15,7 @@
       {{#each pages}}
       <div class="page" v-if="activePage == '{{@key}}'" style="width: 100%; height: 100%;">
         {{#each this.components}}
-        <div style="position: absolute; width: 100%; height: 100%;">
-          {{{this.html}}}
-        </div>
+        {{{this.html}}}
         {{/each}}
       </div>
       {{/each}}
