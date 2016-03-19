@@ -50,6 +50,9 @@
           {{/each}}
         },
       })
+      {{#each watch}}
+      vm.$watch('{{this}}', function(value){ this.{{@key}} = value })
+      {{/each}}
     </script>
 
   </body>

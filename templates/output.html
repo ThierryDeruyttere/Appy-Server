@@ -14,7 +14,7 @@
     <app style="width: 100%; height: 100%;">
       <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
         <div class="label"
-     v-text="Textbox1.name"
+     v-text="Label0.name"
      v-show="Label0.visibility"
      :style="{position: 'absolute', overflow: 'hidden', width: Label0.dim.width/app.width*100+'%', height: Label0.dim.height/app.height*100+'%', top: Label0.dim.row/app.height*100+'%', left: Label0.dim.col/app.width*100+'%'}">
 </div>
@@ -27,7 +27,7 @@
 </div>
 
         <div class="label"
-     v-text="Label0.name"
+     v-text="Label2.name"
      v-show="Label2.visibility"
      :style="{position: 'absolute', overflow: 'hidden', width: Label2.dim.width/app.width*100+'%', height: Label2.dim.height/app.height*100+'%', top: Label2.dim.row/app.height*100+'%', left: Label2.dim.col/app.width*100+'%'}">
 </div>
@@ -55,6 +55,8 @@
         methods: {
         },
       })
+      vm.$watch('Textbox1.name', function(value){ this.Label0.name = value })
+      vm.$watch('Label0.name', function(value){ this.Label2.name = value })
     </script>
 
   </body>

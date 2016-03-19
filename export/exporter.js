@@ -26,13 +26,12 @@ function parseProperties(appDescription) {
   for(comp in appDescription.components) {
     appDescription.components[comp].binding = {};
     for(prop in appDescription.components[comp].properties) {
-      // Set default component bindings
+      // Set bindings between properties
       if(appDescription.components[comp].properties[prop].input) {
-        appDescription.components[comp].binding[prop] = appDescription.components[comp].properties[prop].input;
+        appDescription.watch[comp + '.' + prop] = appDescription.components[comp].properties[prop].input;
       }
-      else {
-        appDescription.components[comp].binding[prop] = comp + '.' + prop;
-      }
+
+      appDescription.components[comp].binding[prop] = comp + '.' + prop;
 
       appDescription.components[comp].properties[prop] = appDescription.components[comp].properties[prop].value;
     }
@@ -52,8 +51,9 @@ function setTriggerBinding(func) {
 // Read json file
 if(process.argv[2]) {
   var appDescription = JSON.parse(fs.readFileSync(process.argv[2]).toString());
+  appDescription.watch = {};
   appDescription = parseProperties(appDescription);
-  appDescription.logic.methods = {}
+  appDescription.logic.methods = {};
   // Logic
   for(f in appDescription.logic.functions) {
 
@@ -86,6 +86,7 @@ if(process.argv[2]) {
   // Components
   for(comp in appDescription.components) {
     component = appDescription.components[comp];
+
 
     // TODO: if we change this to coffeescript:
     // component.html = templates[component.type]?(component.binding);
