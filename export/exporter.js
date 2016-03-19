@@ -41,7 +41,7 @@ function parseProperties(appDescription) {
 
 function setTriggerBinding(func) {
   func.triggers.forEach(function(t) {
-    var trigger = appDescription.logic.triggers[t];
+    var trigger = appDescription.logic.triggers[t.name];
     var component = appDescription.components[trigger.component];
 
     component.binding[trigger.action] = func.name;

@@ -13,30 +13,35 @@
   <body style="width: 100%; height: 100%;">
     <app style="width: 100%; height: 100%;">
       <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
-        <div class="input-field" :style="{position: 'absolute', width: Textbox0.dim.width/app.width*100+'%', height: Textbox0.dim.height/app.height*100+'%', top: Textbox0.dim.row/app.height*100+'%', left: Textbox0.dim.col/app.width*100+'%'}">
+        <button class="btn" :style="{position: 'absolute', width: Button0.dim.width/app.width*100+'%', height: Button0.dim.height/app.height*100+'%', top: Button0.dim.row/app.height*100+'%', left: Button0.dim.col/app.width*100+'%'}"
+        v-text="Button0.text"
+        @click="Plus5_method">
+</button>
+
+        <button class="btn" :style="{position: 'absolute', width: Button1.dim.width/app.width*100+'%', height: Button1.dim.height/app.height*100+'%', top: Button1.dim.row/app.height*100+'%', left: Button1.dim.col/app.width*100+'%'}"
+        v-text="Button1.text"
+        @click="Plus5_method">
+</button>
+
+        <div class="input-field" :style="{position: 'absolute', width: Textbox2.dim.width/app.width*100+'%', height: Textbox2.dim.height/app.height*100+'%', top: Textbox2.dim.row/app.height*100+'%', left: Textbox2.dim.col/app.width*100+'%'}">
   <input type="text" class="validate"
-         v-model=""
-         v-show="Textbox0.visibility">
+         v-model="Textbox2.text"
+         v-show="Textbox2.visibility">
   </input>
 </div>
 
-        <div class="input-field" :style="{position: 'absolute', width: Textbox1.dim.width/app.width*100+'%', height: Textbox1.dim.height/app.height*100+'%', top: Textbox1.dim.row/app.height*100+'%', left: Textbox1.dim.col/app.width*100+'%'}">
+        <div class="input-field" :style="{position: 'absolute', width: Textbox3.dim.width/app.width*100+'%', height: Textbox3.dim.height/app.height*100+'%', top: Textbox3.dim.row/app.height*100+'%', left: Textbox3.dim.col/app.width*100+'%'}">
   <input type="text" class="validate"
-         v-model=""
-         v-show="Textbox1.visibility">
+         v-model="Textbox3.text"
+         v-show="Textbox3.visibility">
   </input>
 </div>
 
         <div class="label"
-     v-text=""
-     v-show="Label2.visibility"
-     :style="{position: 'absolute', overflow: 'hidden', width: Label2.dim.width/app.width*100+'%', height: Label2.dim.height/app.height*100+'%', top: Label2.dim.row/app.height*100+'%', left: Label2.dim.col/app.width*100+'%'}">
+     v-text="Label4.text"
+     v-show="Label4.visibility"
+     :style="{position: 'absolute', overflow: 'hidden', width: Label4.dim.width/app.width*100+'%', height: Label4.dim.height/app.height*100+'%', top: Label4.dim.row/app.height*100+'%', left: Label4.dim.col/app.width*100+'%'}">
 </div>
-
-        <button class="btn" :style="{position: 'absolute', width: Button5.dim.width/app.width*100+'%', height: Button5.dim.height/app.height*100+'%', top: Button5.dim.row/app.height*100+'%', left: Button5.dim.col/app.width*100+'%'}"
-        v-text=""
-        @click="Plus3_method">
-</button>
 
       </div>
 
@@ -52,23 +57,24 @@
         data: {
           activePage: 'Page0',
           app: {"author":"John Doe","appName":"MyAwesomeApp","width":10,"height":20,"pageNames":["Page0"]},
-          Textbox0: {"visibility":true,"dim":{"row":0,"col":0,"width":10,"height":4},"page":"Page0","text":"Sample text"},
-          Textbox1: {"visibility":true,"dim":{"row":4,"col":0,"width":10,"height":5},"page":"Page0","text":"Sample text"},
-          Label2: {"visibility":true,"dim":{"row":0,"col":5,"width":1,"height":1},"page":"Page0","text":"Sample text"},
-          Button5: {"visibility":true,"dim":{"row":18,"col":0,"width":10,"height":2},"page":"Page0","text":"Set text"},
-          Plus3: {"result":null},
+          Button0: {"visibility":true,"dim":{"row":8,"col":0,"width":3,"height":3},"page":"Page0","text":"Sample text"},
+          Button1: {"visibility":true,"dim":{"row":8,"col":4,"width":4,"height":2},"page":"Page0","text":"Sample text"},
+          Textbox2: {"visibility":true,"dim":{"row":0,"col":1,"width":4,"height":3},"page":"Page0","text":"Sample text"},
+          Textbox3: {"visibility":true,"dim":{"row":1,"col":5,"width":5,"height":4},"page":"Page0","text":"Sample text"},
+          Label4: {"visibility":true,"dim":{"row":0,"col":0,"width":4,"height":3},"page":"Page0","text":"Sample text"},
+          Plus5: {"result":null},
         },
         computed: {
         },
         methods: {
-          Plus3_method: function() {
-  this.Plus3.result = this.Textbox0.text + this.Textbox1.text;
+          Plus5_method: function() {
+  this.Plus5.result = this.Textbox2.text + this.Textbox3.text;
   return null;
 }
 ,
         },
       })
-      vm.$watch('Plus3.result', function(value){ this.Label2.text = value })
+      vm.$watch('Plus5.result', function(value){ this.Label4.text = value })
     </script>
 
   </body>
