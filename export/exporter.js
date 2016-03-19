@@ -16,8 +16,10 @@ var templates = {
   Image: Handlebars.compile(fs.readFileSync("export/templates/HTML/image.html").toString()),
   Label: Handlebars.compile(fs.readFileSync("export/templates/HTML/label.html").toString()),
   Textbox: Handlebars.compile(fs.readFileSync("export/templates/HTML/textbox.html").toString()),
+  List: Handlebars.compile(fs.readFileSync("export/templates/js/list.html").toString()),
   Plus: Handlebars.compile(fs.readFileSync("export/templates/js/plus.js").toString()),
   GotoPage: Handlebars.compile(fs.readFileSync("export/templates/js/gotopage.js").toString()),
+  AddTextToList: Handlebars.compile(fs.readFileSync("export/templates/js/addTextToList.js").toString()),
 }
 
 var appTemplate = Handlebars.compile(fs.readFileSync("export/templates/HTML/app_page.html").toString());

@@ -43,6 +43,12 @@
      :style="{position: 'absolute', overflow: 'hidden', width: Label4.dim.width/app.width*100+'%', height: Label4.dim.height/app.height*100+'%', top: Label4.dim.row/app.height*100+'%', left: Label4.dim.col/app.width*100+'%'}">
 </div>
 
+        <div class="label"
+     v-text="Label8.text"
+     v-show="Label8.visibility"
+     :style="{position: 'absolute', overflow: 'hidden', width: Label8.dim.width/app.width*100+'%', height: Label8.dim.height/app.height*100+'%', top: Label8.dim.row/app.height*100+'%', left: Label8.dim.col/app.width*100+'%'}">
+</div>
+
       </div>
 
     </app>
@@ -61,7 +67,8 @@
           Button1: {"visibility":true,"dim":{"row":8,"col":4,"width":4,"height":2},"page":"Page0","text":"Sample text"},
           Textbox2: {"visibility":true,"dim":{"row":0,"col":1,"width":4,"height":3},"page":"Page0","text":"Sample text"},
           Textbox3: {"visibility":true,"dim":{"row":1,"col":5,"width":5,"height":4},"page":"Page0","text":"Sample text"},
-          Label4: {"visibility":true,"dim":{"row":0,"col":0,"width":4,"height":3},"page":"Page0","text":"Sample text"},
+          Label4: {"visibility":true,"dim":{"row":0,"col":9,"width":1,"height":1},"page":"Page0","text":"Sample text"},
+          Label8: {"visibility":true,"dim":{"row":11,"col":1,"width":5,"height":6},"page":"Page0","text":"Sample text"},
           Plus5: {"result":null},
         },
         computed: {
@@ -75,6 +82,7 @@
         },
       })
       vm.$watch('Plus5.result', function(value){ this.Label4.text = value })
+      vm.$watch('Label4.text', function(value){ this.Label8.text = value })
     </script>
 
   </body>

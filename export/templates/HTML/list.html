@@ -1,0 +1,11 @@
+<div>
+    <ul v-show="{{ visibility }}"  :style="{position: 'absolute', overflow: 'hidden', width: {{dim}}.width/app.width*100+'%', height: {{dim}}.height/app.height*100+'%', top: {{dim}}.row/app.height*100+'%', left: {{dim}}.col/app.width*100+'%'}">
+       {{#each items}}
+      <li>
+        <div v-show="{{this.visibility}}">
+          {{ this.message.value }}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+</div>
