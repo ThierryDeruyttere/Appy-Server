@@ -13,24 +13,30 @@
   <body style="width: 100%; height: 100%;">
     <app style="width: 100%; height: 100%;">
       <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
-        <div class="label"
-     v-text="Label0.name"
-     v-show="Label0.visibility"
-     :style="{position: 'absolute', overflow: 'hidden', width: Label0.dim.width/app.width*100+'%', height: Label0.dim.height/app.height*100+'%', top: Label0.dim.row/app.height*100+'%', left: Label0.dim.col/app.width*100+'%'}">
+        <div class="input-field" :style="{position: 'absolute', width: Textbox0.dim.width/app.width*100+'%', height: Textbox0.dim.height/app.height*100+'%', top: Textbox0.dim.row/app.height*100+'%', left: Textbox0.dim.col/app.width*100+'%'}">
+  <input type="text" class="validate"
+         v-model=""
+         v-show="Textbox0.visibility">
+  </input>
 </div>
 
         <div class="input-field" :style="{position: 'absolute', width: Textbox1.dim.width/app.width*100+'%', height: Textbox1.dim.height/app.height*100+'%', top: Textbox1.dim.row/app.height*100+'%', left: Textbox1.dim.col/app.width*100+'%'}">
   <input type="text" class="validate"
-         v-model="Textbox1.name"
+         v-model=""
          v-show="Textbox1.visibility">
   </input>
 </div>
 
         <div class="label"
-     v-text="Label2.name"
+     v-text=""
      v-show="Label2.visibility"
      :style="{position: 'absolute', overflow: 'hidden', width: Label2.dim.width/app.width*100+'%', height: Label2.dim.height/app.height*100+'%', top: Label2.dim.row/app.height*100+'%', left: Label2.dim.col/app.width*100+'%'}">
 </div>
+
+        <button class="btn" :style="{position: 'absolute', width: Button5.dim.width/app.width*100+'%', height: Button5.dim.height/app.height*100+'%', top: Button5.dim.row/app.height*100+'%', left: Button5.dim.col/app.width*100+'%'}"
+        v-text=""
+        @click="Plus3_method">
+</button>
 
       </div>
 
@@ -46,17 +52,23 @@
         data: {
           activePage: 'Page0',
           app: {"author":"John Doe","appName":"MyAwesomeApp","width":10,"height":20,"pageNames":["Page0"]},
-          Label0: {"visibility":true,"dim":{"row":8,"col":0,"width":10,"height":5},"page":"Page0","name":"Sample text"},
-          Textbox1: {"visibility":true,"dim":{"row":0,"col":0,"width":10,"height":3},"page":"Page0","name":"Sample text"},
-          Label2: {"visibility":true,"dim":{"row":3,"col":0,"width":10,"height":5},"page":"Page0","name":"Sample text"},
+          Textbox0: {"visibility":true,"dim":{"row":0,"col":0,"width":10,"height":4},"page":"Page0","text":"Sample text"},
+          Textbox1: {"visibility":true,"dim":{"row":4,"col":0,"width":10,"height":5},"page":"Page0","text":"Sample text"},
+          Label2: {"visibility":true,"dim":{"row":0,"col":5,"width":1,"height":1},"page":"Page0","text":"Sample text"},
+          Button5: {"visibility":true,"dim":{"row":18,"col":0,"width":10,"height":2},"page":"Page0","text":"Set text"},
+          Plus3: {"result":null},
         },
         computed: {
         },
         methods: {
+          Plus3_method: function() {
+  this.Plus3.result = this.Textbox0.text + this.Textbox1.text;
+  return null;
+}
+,
         },
       })
-      vm.$watch('Textbox1.name', function(value){ this.Label0.name = value })
-      vm.$watch('Label0.name', function(value){ this.Label2.name = value })
+      vm.$watch('Plus3.result', function(value){ this.Label2.text = value })
     </script>
 
   </body>

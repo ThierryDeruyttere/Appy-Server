@@ -87,7 +87,6 @@ if(process.argv[2]) {
   for(comp in appDescription.components) {
     component = appDescription.components[comp];
 
-
     // TODO: if we change this to coffeescript:
     // component.html = templates[component.type]?(component.binding);
     component.html = typeof templates[component.type] === "function" ? templates[component.type](component.binding) : void 0;
