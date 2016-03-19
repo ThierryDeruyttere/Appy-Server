@@ -13,29 +13,23 @@
   <body style="width: 100%; height: 100%;">
     <app style="width: 100%; height: 100%;">
       <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
-        <button class="btn" :style="{position: 'absolute', width: Button2.dim.width/app.width*100+'%', height: Button2.dim.height/app.height*100+'%', top: Button2.dim.row/app.height*100+'%', left: Button2.dim.col/app.width*100+'%'}"
-        v-text="Button2.name"
-        @click="Plus1_method">
-</button>
+        <div class="label"
+     v-text="Textbox1.name"
+     v-show="Label0.visibility"
+     :style="{position: 'absolute', overflow: 'hidden', width: Label0.dim.width/app.width*100+'%', height: Label0.dim.height/app.height*100+'%', top: Label0.dim.row/app.height*100+'%', left: Label0.dim.col/app.width*100+'%'}">
+</div>
+
+        <div class="input-field" :style="{position: 'absolute', width: Textbox1.dim.width/app.width*100+'%', height: Textbox1.dim.height/app.height*100+'%', top: Textbox1.dim.row/app.height*100+'%', left: Textbox1.dim.col/app.width*100+'%'}">
+  <input type="text" class="validate"
+         v-model="Textbox1.name"
+         v-show="Textbox1.visibility">
+  </input>
+</div>
 
         <div class="label"
-     v-text="Label3.name"
-     v-show="Label3.visibility"
-     :style="{position: 'absolute', overflow: 'hidden', width: Label3.dim.width/app.width*100+'%', height: Label3.dim.height/app.height*100+'%', top: Label3.dim.row/app.height*100+'%', left: Label3.dim.col/app.width*100+'%'}">
-</div>
-
-        <div class="input-field" :style="{position: 'absolute', width: Textbox4.dim.width/app.width*100+'%', height: Textbox4.dim.height/app.height*100+'%', top: Textbox4.dim.row/app.height*100+'%', left: Textbox4.dim.col/app.width*100+'%'}">
-  <input type="text" class="validate"
-         v-model="Textbox4.name"
-         v-show="Textbox4.visibility">
-  </input>
-</div>
-
-        <div class="input-field" :style="{position: 'absolute', width: Textbox5.dim.width/app.width*100+'%', height: Textbox5.dim.height/app.height*100+'%', top: Textbox5.dim.row/app.height*100+'%', left: Textbox5.dim.col/app.width*100+'%'}">
-  <input type="text" class="validate"
-         v-model="Textbox5.name"
-         v-show="Textbox5.visibility">
-  </input>
+     v-text="Label0.name"
+     v-show="Label2.visibility"
+     :style="{position: 'absolute', overflow: 'hidden', width: Label2.dim.width/app.width*100+'%', height: Label2.dim.height/app.height*100+'%', top: Label2.dim.row/app.height*100+'%', left: Label2.dim.col/app.width*100+'%'}">
 </div>
 
       </div>
@@ -52,20 +46,13 @@
         data: {
           activePage: 'Page0',
           app: {"author":"John Doe","appName":"MyAwesomeApp","width":10,"height":20,"pageNames":["Page0"]},
-          Button2: {"visibility":true,"dim":{"row":12,"col":0,"width":7,"height":5},"page":"Page0","name":"Sample text"},
-          Label3: {"visibility":true,"dim":{"row":11,"col":0,"width":7,"height":1},"page":"Page0","name":"Sample text"},
-          Textbox4: {"visibility":true,"dim":{"row":0,"col":0,"width":10,"height":4},"page":"Page0","name":"Sample text"},
-          Textbox5: {"visibility":true,"dim":{"row":2,"col":0,"width":10,"height":4},"page":"Page0","name":"Sample text"},
-          Plus1: {"result":null},
+          Label0: {"visibility":true,"dim":{"row":8,"col":0,"width":10,"height":5},"page":"Page0","name":"Sample text"},
+          Textbox1: {"visibility":true,"dim":{"row":0,"col":0,"width":10,"height":3},"page":"Page0","name":"Sample text"},
+          Label2: {"visibility":true,"dim":{"row":3,"col":0,"width":10,"height":5},"page":"Page0","name":"Sample text"},
         },
         computed: {
         },
         methods: {
-          Plus1_method: function() {
-  this.Plus1.result = this.Textbox3 + this.Textbox4;
-  return null;
-}
-,
         },
       })
     </script>
