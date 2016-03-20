@@ -35,7 +35,9 @@ function parseProperties(appDescription) {
 
       appDescription.components[comp].binding[prop] = comp + '.' + prop;
 
-      appDescription.components[comp].properties[prop] = appDescription.components[comp].properties[prop].value;
+      if( appDescription.components[comp].properties[prop].value)
+        appDescription.components[comp].properties[prop] = appDescription.components[comp].properties[prop].value;
+
     }
   }
   return appDescription
@@ -60,7 +62,7 @@ if(process.argv[2]) {
   for(f in appDescription.logic.functions) {
 
     func = appDescription.logic.functions[f];
-    console.log(func.type)
+
     func.js = templates[func.type](_.extend(func.parameters, {'name': f}));
 
     if(func.triggers.length > 0) {

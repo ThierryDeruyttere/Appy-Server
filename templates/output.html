@@ -13,27 +13,26 @@
   <body style="width: 100%; height: 100%;">
     <app style="width: 100%; height: 100%;">
       <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
-        <button class="btn" :style="{position: 'absolute', width: Button0.dim.width/app.width*100+'%', height: Button0.dim.height/app.height*100+'%', top: Button0.dim.row/app.height*100+'%', left: Button0.dim.col/app.width*100+'%'}"
-        v-text="Button0.text"
-        @click="Plus5_method">
-</button>
-
-        <div class="input-field" :style="{position: 'absolute', width: Textbox1.dim.width/app.width*100+'%', height: Textbox1.dim.height/app.height*100+'%', top: Textbox1.dim.row/app.height*100+'%', left: Textbox1.dim.col/app.width*100+'%'}">
-  <input type="text" class="validate"
-         v-model="Textbox1.text"
-         v-show="Textbox1.visibility">
-  </input>
-</div>
-
         <div>
-    <ul v-show="List2.visibility"  :style="{position: 'absolute', overflow: 'hidden', width: List2.dim.width/app.width*100+'%', height: List2.dim.height/app.height*100+'%', top: List2.dim.row/app.height*100+'%', left: List2.dim.col/app.width*100+'%'}">
-     <li v-for="item in cmp.items()" track-by="index">
-        <div v-show="item.visible.value">
-          
+    <ul v-show="List0.visibility"  :style="{position: 'absolute', overflow: 'hidden', width: List0.dim.width/app.width*100+'%', height: List0.dim.height/app.height*100+'%', top: List0.dim.row/app.height*100+'%', left: List0.dim.col/app.width*100+'%'}">
+     <li v-for="item in List0.items" track-by="index">
+        <div v-show="item.visible.value" v-text="item.message.value">
         </div>
       </li>
     </ul>
 </div>
+        <button class="btn" :style="{position: 'absolute', width: Button1.dim.width/app.width*100+'%', height: Button1.dim.height/app.height*100+'%', top: Button1.dim.row/app.height*100+'%', left: Button1.dim.col/app.width*100+'%'}"
+        v-text="Button1.text"
+        @click="AddTextToList3_method">
+</button>
+
+        <div class="input-field" :style="{position: 'absolute', width: Textbox2.dim.width/app.width*100+'%', height: Textbox2.dim.height/app.height*100+'%', top: Textbox2.dim.row/app.height*100+'%', left: Textbox2.dim.col/app.width*100+'%'}">
+  <input type="text" class="validate"
+         v-model="Textbox2.text"
+         v-show="Textbox2.visibility">
+  </input>
+</div>
+
       </div>
 
     </app>
@@ -48,25 +47,28 @@
         data: {
           activePage: 'Page0',
           app: {"author":"John Doe","appName":"MyAwesomeApp","width":10,"height":20,"pageNames":["Page0"]},
-          Button0: {"visibility":true,"dim":{"row":0,"col":6,"width":4,"height":2},"page":"Page0","text":"ADD"},
-          Textbox1: {"visibility":true,"dim":{"row":0,"col":0,"width":6,"height":2},"page":"Page0","text":"Input"},
-          List2: {"visibility":true,"dim":{"row":2,"col":0,"width":10,"height":18},"page":"Page0","add":"Add Item","delete":"Delete item","selectedItemProperties":null},
+          List0: {"visibility":true,"dim":{"row":2,"col":0,"width":10,"height":18},"page":"Page0","add":"Add Item","itemSelect":{"type":"select","options":[],"selected":null},"delete":"Delete item","selectedItemProperties":{"type":"nested","value":null,"emptyMsg":"Select an item to change it."},"items":[]},
+          Button1: {"visibility":true,"dim":{"row":0,"col":6,"width":4,"height":2},"page":"Page0","text":"ADD"},
+          Textbox2: {"visibility":true,"dim":{"row":0,"col":0,"width":6,"height":2},"page":"Page0","text":"Input"},
           AddTextToList3: {"result":null},
-          Plus5: {"result":null},
         },
         computed: {
         },
         methods: {
-          AddTextToList3_method: /**
- * Created by thierryderuyttere on 20/03/16.
- */
-function() {
-  this.List2.push(this.Textbox1.text);
-  return null;
-}
-,
-          Plus5_method: function() {
-  this.Plus5.result = this.Textbox1.text + this.Textbox1.text;
+          AddTextToList3_method: function() {
+  var size = this.List0.items.length + 1000;
+
+  var obj = {
+    "index": size,
+    "name": "item_"+size,
+    "message": {
+      "name": "Text",
+      "type": "text",
+      "value": this.Textbox2.text
+    }
+  }
+
+  this.List0.items.push(obj);
   return null;
 }
 ,
