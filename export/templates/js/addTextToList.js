@@ -1,6 +1,4 @@
-/**
- * Created by thierryderuyttere on 20/03/16.
- */
 function() {
+  this.{{list}}.push(this.{{text}});
   return null;
 }

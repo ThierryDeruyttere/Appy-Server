@@ -16,7 +16,7 @@ var templates = {
   Image: Handlebars.compile(fs.readFileSync("export/templates/HTML/image.html").toString()),
   Label: Handlebars.compile(fs.readFileSync("export/templates/HTML/label.html").toString()),
   Textbox: Handlebars.compile(fs.readFileSync("export/templates/HTML/textbox.html").toString()),
-  List: Handlebars.compile(fs.readFileSync("export/templates/js/list.html").toString()),
+  List: Handlebars.compile(fs.readFileSync("export/templates/HTML/list.html").toString()),
   Plus: Handlebars.compile(fs.readFileSync("export/templates/js/plus.js").toString()),
   GotoPage: Handlebars.compile(fs.readFileSync("export/templates/js/gotopage.js").toString()),
   AddTextToList: Handlebars.compile(fs.readFileSync("export/templates/js/addTextToList.js").toString()),
@@ -60,6 +60,7 @@ if(process.argv[2]) {
   for(f in appDescription.logic.functions) {
 
     func = appDescription.logic.functions[f];
+    console.log(func.type)
     func.js = templates[func.type](_.extend(func.parameters, {'name': f}));
 
     if(func.triggers.length > 0) {
