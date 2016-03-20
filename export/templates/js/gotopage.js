@@ -1,4 +1,4 @@
 function() {
-  this.{{name}}.result = this.{{left}} + this.{{right}};
+  this.activePage = "{{page}}";
   return null;
 }
