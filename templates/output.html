@@ -13,10 +13,10 @@
   <body style="width: 100%; height: 100%;">
     <app style="width: 100%; height: 100%;">
       <div class="page" v-if="activePage == 'Page0'" style="width: 100%; height: 100%;">
-        <div>
-    <ul v-show="List0.visibility"  :style="{position: 'absolute', overflow: 'hidden', width: List0.dim.width/app.width*100+'%', height: List0.dim.height/app.height*100+'%', top: List0.dim.row/app.height*100+'%', left: List0.dim.col/app.width*100+'%'}">
-     <li v-for="item in List0.items" track-by="index">
-        <div v-show="item.visible.value" v-text="item.message.value">
+        <div :style="{position: 'absolute', overflow: 'hidden', width: List0.dim.width/app.width*100+'%', height: List0.dim.height/app.height*100+'%', top: List0.dim.row/app.height*100+'%', left: List0.dim.col/app.width*100+'%'}">
+    <ul v-show="List0.visibility">
+        <li v-for="item in List0.items" track-by="index">
+        <div v-text="item.message.value">
         </div>
       </li>
     </ul>
