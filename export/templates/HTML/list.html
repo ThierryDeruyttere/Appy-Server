@@ -1,7 +1,7 @@
 <div :style="{position: 'absolute', overflow: 'hidden', width: {{dim}}.width/app.width*100+'%', height: {{dim}}.height/app.height*100+'%', top: {{dim}}.row/app.height*100+'%', left: {{dim}}.col/app.width*100+'%'}">
     <ul v-show="{{ visibility }}">
         <li v-for="item in {{ items }}" track-by="index">
-        <div v-text="item.message.value">
+        <div v-show="item.visible.value" v-text="item.message.value">
         </div>
       </li>
     </ul>

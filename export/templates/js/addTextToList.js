@@ -8,6 +8,10 @@ function() {
       "name": "Text",
       "type": "text",
       "value": this.{{text}}
+    },
+    "visible": {
+    "type": "switch",
+        "value": true
     }
   }
 

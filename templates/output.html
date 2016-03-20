@@ -16,7 +16,7 @@
         <div :style="{position: 'absolute', overflow: 'hidden', width: List0.dim.width/app.width*100+'%', height: List0.dim.height/app.height*100+'%', top: List0.dim.row/app.height*100+'%', left: List0.dim.col/app.width*100+'%'}">
     <ul v-show="List0.visibility">
         <li v-for="item in List0.items" track-by="index">
-        <div v-text="item.message.value">
+        <div v-show="item.visible.value" v-text="item.message.value">
         </div>
       </li>
     </ul>
@@ -47,7 +47,7 @@
         data: {
           activePage: 'Page0',
           app: {"author":"John Doe","appName":"MyAwesomeApp","width":10,"height":20,"pageNames":["Page0"]},
-          List0: {"visibility":true,"dim":{"row":2,"col":0,"width":10,"height":18},"page":"Page0","add":"Add Item","itemSelect":{"type":"select","options":[],"selected":null},"delete":"Delete item","selectedItemProperties":{"type":"nested","value":null,"emptyMsg":"Select an item to change it."},"items":[]},
+          List0: {"visibility":true,"dim":{"row":4,"col":0,"width":10,"height":16},"page":"Page0","add":"Add Item","itemSelect":{"type":"select","options":[],"selected":null},"delete":"Delete item","selectedItemProperties":{"type":"nested","value":null,"emptyMsg":"Select an item to change it."},"items":[]},
           Button1: {"visibility":true,"dim":{"row":0,"col":6,"width":4,"height":2},"page":"Page0","text":"ADD"},
           Textbox2: {"visibility":true,"dim":{"row":0,"col":0,"width":6,"height":2},"page":"Page0","text":"Input"},
           AddTextToList3: {"result":null},
@@ -65,6 +65,10 @@
       "name": "Text",
       "type": "text",
       "value": this.Textbox2.text
+    },
+    "visible": {
+    "type": "switch",
+        "value": true
     }
   }
 
