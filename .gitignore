@@ -1,4 +1,10 @@
+# All generated appys
 appys/
+
+# Other generated files
+templates/output.html
+export/input.html
+export/input.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -101,6 +107,3 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
-
-#templates
-templates/output.html

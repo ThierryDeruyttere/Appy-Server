@@ -14,9 +14,9 @@
     <app style="width: 100%; height: 100%;">
       {{#each pages}}
       <div class="page" v-if="activePage == '{{@key}}'" style="width: 100%; height: 100%;">
-        {{#each this.components}}
-        {{{this.html}}}
-        {{/each}}
+        <div v-for="(name, component) in components">
+          <partial :name="name"></div>
+        </div>
       </div>
       {{/each}}
 
@@ -30,14 +30,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script>
       Vue.config.debug = true
+      {{#each components}}
+      Vue.partial("{{@key}}", {{{json this.html}}})
+      {{/each}}
       var vm = new Vue({
         el: 'app',
         data: {
           activePage: 'Page0',
           app: {{{json info}}},
-          {{#each components}}
-          {{@key}}: {{{json this.properties}}},
-          {{/each}}
+          components: {
+            {{#each components}}
+            {{@key}}: {{{json this}}},
+            {{/each}}
+          }
         },
         computed: {
           {{#each logic.functions}}

@@ -33,7 +33,7 @@ function parseProperties(appDescription) {
         appDescription.watch[comp + '.' + prop] = appDescription.components[comp].properties[prop].input;
       }
 
-      appDescription.components[comp].binding[prop] = comp + '.' + prop;
+      appDescription.components[comp].binding[prop] = 'components.' + comp + '.properties.' + prop;
 
       if( appDescription.components[comp].properties[prop].value)
         appDescription.components[comp].properties[prop] = appDescription.components[comp].properties[prop].value;
