@@ -3,7 +3,7 @@ import json
 from pybars import Compiler
 compiler = Compiler()
 
-def _json(this, context):
+def _json(self, context):
     return json.dumps(context)
 
 def readFile(filePath):
@@ -54,19 +54,19 @@ def export(path):
     appDescription = json.load(open(path, 'r'))
     appDescription['watch'] = {}
     appDescription = parseProperties(appDescription)
-    #appDescription['logic'] = {}
     appDescription['logic']['methods'] = {}
+
     # Logic
     for f in appDescription['logic']['functions']:
         func = appDescription['logic]']['functions'][f]
 
         func['parameters']['name'] = f
-        func['js'] = templates[func['type']]()
+        func['js'] = templates[func['type']](f)
 
-        if func.triggers.length > 0:
-            func.name = f + '_method'
-            appDescription.logic.methods[func.name] = func.js
-            del appDescription.logic.functions[f]
+        if len(func['triggers']) > 0:
+            func['name'] = f + '_method'
+            appDescription['logic']['methods'][func['name']] = func['js']
+            del appDescription['logic']['functions'][f]
 
             # Set the component binding to the right function
             setTriggerBinding(func)
@@ -74,8 +74,8 @@ def export(path):
             func.name = f + '_computed'
 
         # Set all outputs of this logic component to null
-        appDescription.components[f] = {}
-        appDescription.components[f].properties = {'result': None}
+        appDescription['components'][f] = {}
+        appDescription['components'][f]['properties'] = {'result': None}
 
         # Pages
 
@@ -88,15 +88,16 @@ def export(path):
     # Components
     for comp in appDescription['components']:
         component = appDescription['components'][comp]
-        print(component)
+        #print(component)
 
         # Set html for that component
-        if type(templates[component['type']]) == "function":
-            component.html = templates[component['type']](component['binding'])
+        if type(templates[component['type']]).__name__ == "function":
+            print(templates[component['type']])
+            component['html'] = templates[component['type']](component['binding'])
 
             # If our component is a list we need to check inside the list for elements
-            if component.type == "List":
-                print(component)
+            if component['type'] == "List":
+                print("YAY")
                 # readList(component, appDescription)
 
         else:
@@ -109,7 +110,6 @@ def export(path):
     # console.log(appTemplate(appDescription));
     path_array = path.split(".")
     f = open(path_array[0] + ".html", 'w')
-    print(appDescription)
     f.write(appTemplate(appDescription, helpers=helpers))
 
 
