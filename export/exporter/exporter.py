@@ -48,6 +48,15 @@ def setTriggerBinding(func) :
         component = appDescription['components'][trigger['component']]
         component['binding'][trigger['action']] = func['name']
 
+def readList(List):
+    for comp in List['properties']['items']:
+        print(comp)
+        name = comp.name
+        print(name)
+        print(comp.components)
+        for item in comp.components:
+            print(item)
+
 
 def export(path):
     # Logic
@@ -93,12 +102,13 @@ def export(path):
 
         # Set html for that component
         if type(templates[component['type']]).__name__ == "function":
+            print(component)
             component['html'] = templates[component['type']](component['binding'])
 
             # If our component is a list we need to check inside the list for elements
             if component['type'] == "List":
                 print("YAY")
-                # readList(component, appDescription)
+                #readList(component)
 
         else:
             component['html'] = None
