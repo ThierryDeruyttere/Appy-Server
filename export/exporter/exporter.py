@@ -44,6 +44,7 @@ def setTriggerBinding(func) :
 
 def export(path):
     # Logic
+    print(path)
     appDescription = json.load(readFile(path))
     appDescription.watch = {}
     appDescription = parseProperties(appDescription)
