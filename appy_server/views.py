@@ -8,6 +8,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
+from export.exporter import exporter
 import os
 import shutil
 import json
@@ -44,7 +45,7 @@ def handle_uploaded_file(form):
     path = "appys/" + user + "/" + title + "/" + title + ".json"
     path = escapeString(path)
 
-    response = os.system("./convert.sh " + path)
+    exporter.export(path)
     shutil.copy("appys/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
     return user, title
 
