@@ -3,6 +3,9 @@ import json
 from pybars import Compiler
 compiler = Compiler()
 
+def _json(this, context):
+    return json.dumps(context)
+
 def readFile(filePath):
     f = open(filePath, 'r')
     return f.read()
@@ -17,43 +20,48 @@ templates = {
     'GotoPage': compiler.compile(readFile("export/templates/js/gotopage.js")),
     'AddTextToList': compiler.compile(readFile("export/templates/js/addTextToList.js")),
 }
+
+helpers = {'json': _json}
+
 appTemplate = compiler.compile(readFile("export/templates/HTML/app_page.html"))
 
 def parseProperties(appDescription):
-    for comp in appDescription.components:
-        appDescription.components[comp].binding = {}
-        for prop in appDescription.components[comp].properties:
+    for comp in appDescription['components']:
+        appDescription['components'][comp]['binding'] = {}
+        for prop in appDescription['components'][comp]['properties']:
             # Set bindings between properties
-            if(appDescription.components[comp].properties[prop].input) :
-                appDescription.watch[comp + '.' + prop] = appDescription.components[comp].properties[prop].input
+            if 'input' in appDescription['components'][comp]['properties'][prop]:
+                appDescription['watch'][comp + '.' + prop] = appDescription['components'][comp]['properties'][prop]['input']
 
-            appDescription.components[comp].binding[prop] = 'components.' + comp + '.properties.' + prop
+            appDescription['components'][comp]['binding'][prop] = 'components.' + comp + '.properties.' + prop
 
-            if( appDescription.components[comp].properties[prop].value):
-                appDescription.components[comp].properties[prop] = appDescription.components[comp].properties[prop].value
+            if 'value' in appDescription['components'][comp]['properties'][prop]:
+                appDescription['components'][comp]['properties'][prop] = appDescription['components'][comp]['properties'][prop]['value']
 
     return appDescription
 
 
 def setTriggerBinding(func) :
-    for t in func.triggers:
-        trigger = appDescription.logic.triggers[t.name]
-        component = appDescription.components[trigger.component]
-        component.binding[trigger.action] = func.name
+    for t in func['triggers']:
+        trigger = appDescription['logic']['triggers'][t['name']]
+        component = appDescription['components'][trigger['component']]
+        component['binding'][trigger['action']] = func['name']
 
 
 def export(path):
     # Logic
-    print(path)
-    appDescription = json.load(readFile(path))
-    appDescription.watch = {}
+    #print(path)
+    appDescription = json.load(open(path, 'r'))
+    appDescription['watch'] = {}
     appDescription = parseProperties(appDescription)
-    appDescription.logic.methods = {}
+    #appDescription['logic'] = {}
+    appDescription['logic']['methods'] = {}
+    # Logic
+    for f in appDescription['logic']['functions']:
+        func = appDescription['logic]']['functions'][f]
 
-    for f in appDescription.logic.functions:
-        func = appDescription.logic.functions[f]
-        func.parameters['name'] = f
-        func.js = templates[func.type]()
+        func['parameters']['name'] = f
+        func['js'] = templates[func['type']]()
 
         if func.triggers.length > 0:
             func.name = f + '_method'
@@ -70,37 +78,39 @@ def export(path):
         appDescription.components[f].properties = {'result': None}
 
         # Pages
-    appDescription.pages = appDescription.pages
-    if appDescription.pages is None:
-        appDescription.pages = {}
-        for pageName in appDescription.info.pageNames:
-            appDescription.pages[pageName] = {}
-            appDescription.pages[pageName].components = {}
+
+    if not 'pages' in appDescription:
+        appDescription['pages'] = {}
+        for pageName in appDescription['info']['pageNames']:
+            appDescription['pages'][pageName] = {}
+            appDescription['pages'][pageName]['components'] = {}
 
     # Components
-    for comp in appDescription.components:
-        component = appDescription.components[comp]
+    for comp in appDescription['components']:
+        component = appDescription['components'][comp]
+        print(component)
 
         # Set html for that component
-        if type(templates[component.type]) == "function":
-            component.html = templates[component.type](component.binding)
+        if type(templates[component['type']]) == "function":
+            component.html = templates[component['type']](component['binding'])
 
             # If our component is a list we need to check inside the list for elements
             if component.type == "List":
-               print(component)
-                    # readList(component, appDescription)
+                print(component)
+                # readList(component, appDescription)
 
         else:
-            component.html = None
+            component['html'] = None
 
-        if component.properties.page:
-            appDescription.pages[component.properties.page].components[comp] = component
+        if 'page' in component['properties']:
+            appDescription['pages'][component['properties']['page']]['components'][comp] = component
 
     # Write HTML output to file
     # console.log(appTemplate(appDescription));
     path_array = path.split(".")
     f = open(path_array[0] + ".html", 'w')
-    f.write(appTemplate(appDescription))
+    print(appDescription)
+    f.write(appTemplate(appDescription, helpers=helpers))
 
 
 appDescription = None
