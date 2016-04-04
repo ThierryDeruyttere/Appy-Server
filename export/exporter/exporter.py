@@ -16,6 +16,7 @@ templates = {
     'Label': compiler.compile(readFile("export/templates/HTML/label.html")),
     'Textbox': compiler.compile(readFile("export/templates/HTML/textbox.html")),
     'List': compiler.compile(readFile("export/templates/HTML/list.html")),
+
     'Plus': compiler.compile(readFile("export/templates/js/plus.js")),
     'GotoPage': compiler.compile(readFile("export/templates/js/gotopage.js")),
     'AddTextToList': compiler.compile(readFile("export/templates/js/addTextToList.js")),
@@ -92,7 +93,6 @@ def export(path):
 
         # Set html for that component
         if type(templates[component['type']]).__name__ == "function":
-            print(templates[component['type']])
             component['html'] = templates[component['type']](component['binding'])
 
             # If our component is a list we need to check inside the list for elements
