@@ -1,7 +1,8 @@
 # appy_server
 
 # Dependencies
-
+Pybars: https://github.com/wbond/pybars3
+    run command: `pip install pybars3`
 
 # To run server
 

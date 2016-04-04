@@ -52,12 +52,28 @@ function setTriggerBinding(func) {
   });
 }
 
+function readList(List, appDescription){
+  console.log(List.properties.items);
+  for(comp in List.properties.items){
+    console.log(comp);
+    var name = comp.name;
+    console.log(name);
+    console.log(comp.components);
+    for(item in comp.components){
+      console.log(item);
+    }
+  }
+
+}
+
+
 // Read json file
 if(process.argv[2]) {
   var appDescription = JSON.parse(fs.readFileSync(process.argv[2]).toString());
   appDescription.watch = {};
   appDescription = parseProperties(appDescription);
   appDescription.logic.methods = {};
+
   // Logic
   for(f in appDescription.logic.functions) {
 
@@ -94,7 +110,19 @@ if(process.argv[2]) {
 
     // TODO: if we change this to coffeescript:
     // component.html = templates[component.type]?(component.binding);
-    component.html = typeof templates[component.type] === "function" ? templates[component.type](component.binding) : void 0;
+    // Set html for that component
+    if(typeof templates[component.type] === "function"){
+      component.html =  templates[component.type](component.binding);
+
+      // If our component is a list we need to check inside the list for elements
+      if(component.type == "List"){
+       console.log(component);
+        readList(component, appDescription)
+      }
+
+    }else{
+       component.html = void 0;
+    }
 
     if(component.properties.page) {
       appDescription.pages[component.properties.page].components[comp] = component;
