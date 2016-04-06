@@ -42,7 +42,7 @@ def parseProperties(appDescription):
     return appDescription
 
 
-def setTriggerBinding(func) :
+def setTriggerBinding(func):
     for t in func['triggers']:
         trigger = appDescription['logic']['triggers'][t['name']]
         component = appDescription['components'][trigger['component']]
@@ -60,7 +60,7 @@ def readList(List):
 
 def export(path):
     # Logic
-    #print(path)
+    # print(path)
     appDescription = json.load(open(path, 'r'))
     appDescription['watch'] = {}
     appDescription = parseProperties(appDescription)
@@ -89,7 +89,7 @@ def export(path):
 
         # Pages
 
-    if not 'pages' in appDescription:
+    if 'pages' not in appDescription:
         appDescription['pages'] = {}
         for pageName in appDescription['info']['pageNames']:
             appDescription['pages'][pageName] = {}
@@ -98,7 +98,7 @@ def export(path):
     # Components
     for comp in appDescription['components']:
         component = appDescription['components'][comp]
-        #print(component)
+        # print(component)
 
         # Set html for that component
         if type(templates[component['type']]).__name__ == "function":
@@ -108,7 +108,7 @@ def export(path):
             # If our component is a list we need to check inside the list for elements
             if component['type'] == "List":
                 print("YAY")
-                #readList(component)
+                # readList(component)
 
         else:
             component['html'] = None
@@ -124,3 +124,7 @@ def export(path):
 
 
 appDescription = None
+
+if __name__ == "__main__":
+    if sys.argv[1]:
+        export(sys.argv[1])
