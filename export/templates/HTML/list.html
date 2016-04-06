@@ -1,6 +1,6 @@
 <div :style="{position: 'absolute', overflow: 'hidden', width: {{dim}}.width/app.width*100+'%', height: {{dim}}.height/app.height*100+'%', top: {{dim}}.row/app.height*100+'%', left: {{dim}}.col/app.width*100+'%'}">
-    <ul v-show="{{ visibility }}">
-        <li v-for="component in {{ genitems }}" track-by="index">
+    <ul v-show="{{visibility}}">
+        <{{itemcomponent}} v-for="component in {{ genitems }}" :component.sync="component"></{{itemcomponent}}>
       </li>
     </ul>
 </div>
