@@ -8,7 +8,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseServerError
-from export.exporter import exporter
+from export import exporter
 import os
 import shutil
 import json
