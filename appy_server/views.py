@@ -12,6 +12,7 @@ from export import exporter
 import os
 import shutil
 import json
+from export.exporter.App import App
 
 @xframe_options_exempt
 def home(request):
@@ -45,7 +46,15 @@ def handle_uploaded_file(form):
     path = "appys/" + user + "/" + title + "/" + title + ".json"
     path = escapeString(path)
 
-    exporter.export(path)
+    app_description = json.load(open(path, 'r'))
+    app = App(app_description)
+
+    path_array = path.split(".")
+    f = open(path_array[0] + ".html", 'w')
+    f.write(app.generate())
+    f.close()
+
+    #exporter.export(path)
     shutil.copy("appys/" + user + "/" + title + "/" + title + ".html", "templates/output.html")
     return user, title
 

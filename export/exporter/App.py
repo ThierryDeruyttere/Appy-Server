@@ -5,10 +5,11 @@ from .List import List
 from .Image import Image
 from .Textbox import Textbox
 from .Label import Label
+import json
 
 from export.utils import readFile
 
-components = {
+componentsTemplate = {
     "List": List,
     "Button": Button,
     "Textbox": Textbox,
@@ -16,6 +17,10 @@ components = {
     "Label": Label
 }
 
+def _json(self, context):
+    return json.dumps(context)
+
+helpers = {'json': _json}
 
 class App:
 
@@ -23,16 +28,23 @@ class App:
         self.html = compiler.compile(readFile("export/templates/HTML/app_page.html"))
         self.comps = self.createComponents(appData['components'])
 
-    def generate(self, appData):
+    def generate(self):
+       app = {
+            'components': {},
+            'watch': {},
+            'lists': {}
+       }
        for comp in self.comps:
-           comp.generate()
+           compName, compDict = comp.generate()
+           app["components"][compName] = compDict
 
-
+       print(self.html(app, helpers=helpers))
+       return self.html(app, helpers=helpers)
 
     def createComponents(self, components):
         comps = []
         for componentName in components:
             component = components[componentName]
             compType = component['type']
-            comps.append(components[compType](componentName, component))
+            comps.append(componentsTemplate[compType](componentName, component))
         return comps
