@@ -9,7 +9,7 @@ import json
 
 from export.utils import readFile
 
-componentsTemplate = {
+componentsClass = {
     "List": List,
     "Button": Button,
     "Textbox": Textbox,
@@ -27,6 +27,7 @@ class App:
     def __init__(self, appData):
         self.html = compiler.compile(readFile("export/templates/HTML/app_page.html"))
         self.comps = self.createComponents(appData['components'])
+        self.info = appData["info"]
 
     def generate(self):
        app = {
@@ -34,6 +35,9 @@ class App:
             'watch': {},
             'lists': {}
        }
+       app["info"] = self.info
+
+
        for comp in self.comps:
            compName, compDict = comp.generate()
            app["components"][compName] = compDict
@@ -46,5 +50,5 @@ class App:
         for componentName in components:
             component = components[componentName]
             compType = component['type']
-            comps.append(componentsTemplate[compType](componentName, component))
+            comps.append(componentsClass[compType](componentName, component))
         return comps
