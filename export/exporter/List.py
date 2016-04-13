@@ -1,9 +1,10 @@
-from .Component import Component
+from .Component import *
 
 class List(Component):
 
-    def __init__(self):
-        super.__init__()
+    def __init__(self, name, info):
+        super.__init__(name, info)
+        self.hmtl = compiler.compile(readFile("export/templates/HTML/textbox.html"))
 
     def generate(self):
         pass
