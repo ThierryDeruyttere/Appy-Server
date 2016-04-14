@@ -22,10 +22,10 @@ class List(Component):
         self.genItems = []
 
         for comp in props["newItemComponents"]:
-            name = self.name + "." + comp["name"]
+            name = comp["name"]
             compType = comp["type"]
 
-            self.genItems.append(componentsClass[compType](name, comp))
+            self.genItems.append(componentsClass[compType](name, comp, inList=True))
 
     def generate(self):
         comp = {}
@@ -38,8 +38,6 @@ class List(Component):
         self.createBinding(comp["binding"], "dim")
         self.createBinding(comp["binding"], "page")
         self.createBinding(comp["binding"], "genitems")
-
-
 
         comp["binding"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"] = {}

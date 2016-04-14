@@ -18,9 +18,11 @@ class Component:
         self.page = props["page"]
         self.dim = Dimension(props["dim"])
 
-    def createBinding(self, bindings, bindingName):
-        bindings[bindingName] = "components." + self.name + "." + bindingName
+    def createBinding(self, bindings, bindingName, inList=False):
+        if inList:
+            bindings[bindingName] = "components." + self.name + "." + bindingName
+        else:
+            bindings[bindingName] = "data." + self.name + "." + bindingName
 
     def generate(self):
         abstract
-

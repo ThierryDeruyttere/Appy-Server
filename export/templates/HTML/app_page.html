@@ -37,12 +37,14 @@
       {{#each genItems}}
       var {{itemcomponent}} = Vue.extend({
         template: {{{json this.html}}},
-        data: function(){
-          return {{{#each components}}
-          {{@key}}: {{{json this.properties}}},
-          {{/each}}}
-        },
-        props: ["component"]
+        props: ["data"],
+        data: function() {
+          return {
+            {{#each components}}
+            {{@key}}: {{{json this.properties}}},
+            {{/each}}
+          }
+        }
       })
       Vue.component("{{itemcomponent}}", {{itemcomponent}})
       {{/each}}
