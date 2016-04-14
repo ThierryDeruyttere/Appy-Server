@@ -5,6 +5,7 @@ from .List import List
 from .Image import Image
 from .Textbox import Textbox
 from .Label import Label
+from .Dimension import Dimension
 import json
 
 from export.utils import readFile
@@ -26,6 +27,7 @@ class App:
 
     def __init__(self, appData):
         self.html = compiler.compile(readFile("export/templates/HTML/app_page.html"))
+        Dimension.setAppDims(appData["info"]["width"], appData["info"]["height"])
         self.comps = self.createComponents(appData['components'])
         self.info = appData["info"]
 

@@ -2,10 +2,9 @@ from .Component import *
 
 class Button(Component):
 
-    def __init__(self, name, info, inList=False):
-        super().__init__(name, info, inList)
+    def __init__(self, name, info, inList=False, listDim=None):
+        super().__init__(name, info, inList, listDim)
         self.parseButtonProps(info["properties"])
-
         self.html = compiler.compile(readFile("export/templates/HTML/button.html"))
 
     def parseButtonProps(self, props):
@@ -19,7 +18,12 @@ class Button(Component):
 
         # Bindings
         self.createBinding(comp["binding"], "visibility")
-        self.createBinding(comp["binding"], "dim")
+
+        self.createBinding(comp["binding"], "width")
+        self.createBinding(comp["binding"], "height")
+        self.createBinding(comp["binding"], "row")
+        self.createBinding(comp["binding"], "column")
+
         self.createBinding(comp["binding"], "text")
         self.createBinding(comp["binding"], "page")
 

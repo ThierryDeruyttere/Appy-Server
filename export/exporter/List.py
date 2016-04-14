@@ -20,12 +20,11 @@ class List(Component):
 
     def parseListProps(self, props):
         self.genItems = []
-
+        self.newItemComponents = []
         for comp in props["newItemComponents"]:
             name = comp["name"]
             compType = comp["type"]
-
-            self.genItems.append(componentsClass[compType](name, comp, inList=True))
+            self.newItemComponents.append(componentsClass[compType](name, comp, True, self.dim))
 
     def generate(self):
         comp = {}
@@ -35,16 +34,19 @@ class List(Component):
 
         # Bindings
         self.createBinding(comp["binding"], "visibility")
-        self.createBinding(comp["binding"], "dim")
         self.createBinding(comp["binding"], "page")
         self.createBinding(comp["binding"], "genitems")
+        self.createBinding(comp["binding"], "width")
+        self.createBinding(comp["binding"], "height")
+        self.createBinding(comp["binding"], "row")
+        self.createBinding(comp["binding"], "column")
 
         comp["binding"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"] = {}
         comp["genItems"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"]["html"] = ""
 
-        for genitem in self.genItems:
+        for genitem in self.newItemComponents:
             _, compData = genitem.generate()
             comp["genItems"]["html"] += compData["html"]
 

@@ -1,4 +1,7 @@
 class Dimension:
+    appWidth = 0
+    appHeight = 0
+
     def __init__(self, dim):
         if "value" in dim:
             dim = dim["value"]
@@ -7,6 +10,11 @@ class Dimension:
         self.width = dim["width"]
         self.row = dim["row"]
         self.column = dim["col"]
+
+    @staticmethod
+    def setAppDims(width, height):
+        Dimension.appWidth = width
+        Dimension.appHeight = height
 
     def getDict(self):
         return {
