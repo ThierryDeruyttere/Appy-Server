@@ -34,7 +34,7 @@
       Vue.partial("{{@key}}", {{{json this.html}}})
       {{/each}}
 
-      {{#each lists}}
+      {{#each genItems}}
       var {{itemcomponent}} = Vue.extend({
         template: {{{json this.html}}},
         data: {

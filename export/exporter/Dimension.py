@@ -1,5 +1,8 @@
 class Dimension:
     def __init__(self, dim):
+        if "value" in dim:
+            dim = dim["value"]
+
         self.height = dim["height"]
         self.width = dim["width"]
         self.row = dim["row"]
