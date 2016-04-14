@@ -2,8 +2,8 @@ from .Component import *
 
 class Textbox(Component):
 
-    def __init__(self, name, info):
-        super().__init__(name, info)
+    def __init__(self, name, info, inList=False):
+        super().__init__(name, info, inList)
         self.parseTextboxProps(info["properties"])
         self.html = compiler.compile(readFile("export/templates/HTML/textbox.html"))
 
