@@ -25,7 +25,6 @@ helpers = {'json': _json}
 class App:
 
     def __init__(self, appData):
-
         self.html = compiler.compile(readFile("export/templates/HTML/app_page.html"))
         self.comps = self.createComponents(appData['components'])
         self.info = appData["info"]

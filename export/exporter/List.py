@@ -16,7 +16,7 @@ class List(Component):
     def __init__(self, name, info):
         super().__init__(name, info)
         self.parseListProps(info["properties"])
-        self.html = compiler.compile(readFile("export/templates/HTML/textbox.html"))
+        self.html = compiler.compile(readFile("export/templates/HTML/list.html"))
 
     def parseListProps(self, props):
         self.genItems = []
@@ -39,9 +39,11 @@ class List(Component):
         self.createBinding(comp["binding"], "page")
         self.createBinding(comp["binding"], "genitems")
 
-        comp["binding"]["itemcomponent"] = self.name + "_component"
+
+
+        comp["binding"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"] = {}
-        comp["genItems"]["itemcomponent"] = self.name + "_component"
+        comp["genItems"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"]["html"] = ""
 
         for genitem in self.genItems:

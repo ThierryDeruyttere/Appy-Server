@@ -24,7 +24,7 @@
       <div hidden v-text="{{this.name}}"></div>
       {{/each}}
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -37,11 +37,12 @@
       {{#each genItems}}
       var {{itemcomponent}} = Vue.extend({
         template: {{{json this.html}}},
-        data: {
-          {{#each components}}
+        data: function(){
+          return {{{#each components}}
           {{@key}}: {{{json this.properties}}},
-          {{/each}}
-        }
+          {{/each}}}
+        },
+        props: ["component"]
       })
       Vue.component("{{itemcomponent}}", {{itemcomponent}})
       {{/each}}
