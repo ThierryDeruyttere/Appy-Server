@@ -19,10 +19,10 @@ class Component:
         self.dim = Dimension(props["dim"])
 
     def createBinding(self, bindings, bindingName, inList=False):
-        if inList:
+        if not inList:
             bindings[bindingName] = "components." + self.name + "." + bindingName
         else:
-            bindings[bindingName] = "data." + self.name + "." + bindingName
+            bindings[bindingName] = "compdata." + self.name + "." + bindingName
 
     def generate(self):
         abstract

@@ -37,7 +37,7 @@
       {{#each genItems}}
       var {{itemcomponent}} = Vue.extend({
         template: {{{json this.html}}},
-        props: ["data"],
+        props: ["compdata"],
         data: function() {
           return {
             {{#each components}}
