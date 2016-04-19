@@ -16,7 +16,7 @@ class Textbox(Component):
         comp["binding"] = {}
         comp["properties"] = self.props
 
-        #Bindings
+        # Bindings
         self.createBinding(comp["binding"], "visibility")
         self.createBinding(comp["binding"], "dim")
         self.createBinding(comp["binding"], "text")
@@ -26,7 +26,7 @@ class Textbox(Component):
         self.createBinding(comp["binding"], "row")
         self.createBinding(comp["binding"], "column")
 
-        #Properties
+        # Properties
         comp["html"] = self.html(comp["binding"])
 
         return self.name, comp

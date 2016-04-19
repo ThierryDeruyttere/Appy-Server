@@ -2,7 +2,7 @@ from .Component import *
 
 class Label(Component):
 
-    def __init__(self, name, info, inList=False,  listDim=None):
+    def __init__(self, name, info, inList=False, listDim=None):
         super().__init__(name, info, inList, listDim)
         self.parseLabelComponent(info["properties"])
 

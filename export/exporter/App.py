@@ -1,5 +1,4 @@
 from pybars import Compiler
-compiler = Compiler()
 from .Button import Button
 from .List import List
 from .Image import Image
@@ -9,6 +8,8 @@ from .Dimension import Dimension
 import json
 
 from export.utils import readFile
+
+compiler = Compiler()
 
 componentsClass = {
     "List": List,
@@ -32,23 +33,23 @@ class App:
         self.info = appData["info"]
 
     def generate(self):
-       app = {
+        app = {
             'components': {},
             'watch': {},
             'genItems': {}
-       }
-       app["info"] = self.info
+        }
 
+        app["info"] = self.info
 
-       for comp in self.comps:
-           compName, compDict, isList = comp.generate()
-           if isList:
-               app["genItems"][compName] = compDict["genItems"]
+        for comp in self.comps:
+            compName, compDict, isList = comp.generate()
+            if isList:
+                app["genItems"][compName] = compDict["genItems"]
 
-           app["components"][compName] = compDict
+            app["components"][compName] = compDict
 
-       print(self.html(app, helpers=helpers))
-       return self.html(app, helpers=helpers)
+        print(self.html(app, helpers=helpers))
+        return self.html(app, helpers=helpers)
 
     def createComponents(self, components):
         comps = []
