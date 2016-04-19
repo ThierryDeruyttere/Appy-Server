@@ -25,9 +25,11 @@ class Component:
         if not self.inList:
             width = Dimension.appWidth
             height = Dimension.appHeight
+            self.props["position"] = "absolute"
         else:
             width = self.listDim.width
             height = self.listDim.height
+            self.props["position"] = "relative"
 
         self.props["width"] = str(self.dim.width / width * 100) + "%"
         self.props["height"] = str(self.dim.height / height * 100) + "%"
@@ -38,7 +40,7 @@ class Component:
         if not self.inList:
             bindings[bindingName] = "components." + self.name + "." + bindingName
         else:
-            specials = ["width", "height", "row", "column"]
+            specials = ["width", "height", "row", "column", "position"]
             if bindingName in specials:
                 bindings[bindingName] = "'" + self.props[bindingName] + "'"
             else:

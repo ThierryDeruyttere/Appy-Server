@@ -40,6 +40,7 @@ class List(Component):
         self.createBinding(comp["binding"], "height")
         self.createBinding(comp["binding"], "row")
         self.createBinding(comp["binding"], "column")
+        self.createBinding(comp["binding"], "position")
 
         comp["binding"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"] = {}

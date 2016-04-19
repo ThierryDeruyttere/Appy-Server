@@ -25,6 +25,7 @@ class Textbox(Component):
         self.createBinding(comp["binding"], "height")
         self.createBinding(comp["binding"], "row")
         self.createBinding(comp["binding"], "column")
+        self.createBinding(comp["binding"], "position")
 
         # Properties
         comp["html"] = self.html(comp["binding"])
