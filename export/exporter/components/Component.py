@@ -3,10 +3,6 @@ from export.utils import readFile
 from .Dimension import Dimension
 compiler = Compiler()
 
-def readFile(filePath):
-    f = open(filePath, 'r')
-    return f.read()
-
 class Component:
     def __init__(self, name, info, inList=False, listDim=None):
         self.name = name

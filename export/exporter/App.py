@@ -1,22 +1,12 @@
 from pybars import Compiler
 compiler = Compiler()
-from .Button import Button
-from .List import List
-from .Image import Image
-from .Textbox import Textbox
-from .Label import Label
-from .Dimension import Dimension
+from export.exporter.components.Components import componentsClass
+from export.exporter.functions.Functions import functionClass
+
+from export.exporter.components.Dimension import Dimension
 import json
 
 from export.utils import readFile
-
-componentsClass = {
-    "List": List,
-    "Button": Button,
-    "Textbox": Textbox,
-    "Image": Image,
-    "Label": Label
-}
 
 def _json(self, context):
     return json.dumps(context)
@@ -30,25 +20,35 @@ class App:
         Dimension.setAppDims(appData["info"]["width"], appData["info"]["height"])
         self.comps = self.createComponents(appData['components'])
         self.info = appData["info"]
+        self.functions = self.createFunctions(appData["logic"]["functions"])
+        self.triggers = appData["logic"]["triggers"]
 
     def generate(self):
-       app = {
+        app = {
             'components': {},
             'watch': {},
-            'genItems': {}
-       }
-       app["info"] = self.info
+            'genItems': {},
+            'logic': {"functions": {}, "methods": {}}
+        }
+        app["info"] = self.info
 
 
-       for comp in self.comps:
-           compName, compDict, isList = comp.generate()
-           if isList:
-               app["genItems"][compName] = compDict["genItems"]
+        for comp in self.comps:
+            compName, compDict, isList = comp.generate()
+            if isList:
+                app["genItems"][compName] = compDict["genItems"]
 
-           app["components"][compName] = compDict
+            app["components"][compName] = compDict
 
-       print(self.html(app, helpers=helpers))
-       return self.html(app, helpers=helpers)
+        for function in self.functions:
+            f = function.generate()
+            app["logic"]["functions"][f["name"]] = f
+
+            print(app["logic"]["functions"])
+
+
+        print(self.html(app, helpers=helpers))
+        return self.html(app, helpers=helpers)
 
     def createComponents(self, components):
         comps = []
@@ -57,3 +57,11 @@ class App:
             compType = component['type']
             comps.append(componentsClass[compType](componentName, component))
         return comps
+
+    def createFunctions(self, functions):
+        funcs = []
+        for name, function in functions.items():
+            funcType = function["type"]
+            print(name, function)
+            funcs.append(functionClass[funcType](name, function))
+        return funcs

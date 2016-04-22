@@ -30,4 +30,4 @@ class Button(Component):
         # Properties
         comp["html"] = self.html(comp["binding"])
 
-        return self.name, comp
+        return self.name, comp, self.inList

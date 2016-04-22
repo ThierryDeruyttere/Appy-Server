@@ -1,24 +1,24 @@
 from .Component import *
 
-class Textbox(Component):
+class Label(Component):
 
-    def __init__(self, name, info, inList=False, listDim=None):
+    def __init__(self, name, info, inList=False,  listDim=None):
         super().__init__(name, info, inList, listDim)
-        self.parseTextboxProps(info["properties"])
-        self.html = compiler.compile(readFile("export/templates/HTML/textbox.html"))
+        self.parseLabelComponent(info["properties"])
 
-    def parseTextboxProps(self, props):
+        self.html = compiler.compile(readFile("export/templates/HTML/label.html"))
+
+    def parseLabelComponent(self, props):
         self.text = props["text"]
 
     def generate(self):
         comp = {}
-        comp["type"] = "Textbox"
+        comp["type"] = "Label"
         comp["binding"] = {}
         comp["properties"] = self.props
 
-        #Bindings
+        # Bindings
         self.createBinding(comp["binding"], "visibility")
-        self.createBinding(comp["binding"], "dim")
         self.createBinding(comp["binding"], "text")
         self.createBinding(comp["binding"], "page")
         self.createBinding(comp["binding"], "width")
@@ -26,7 +26,7 @@ class Textbox(Component):
         self.createBinding(comp["binding"], "row")
         self.createBinding(comp["binding"], "column")
 
-        #Properties
+        # Properties
         comp["html"] = self.html(comp["binding"])
 
-        return self.name, comp
+        return self.name, comp, self.inList
