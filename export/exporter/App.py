@@ -40,7 +40,7 @@ class App:
             app["functionObj"][function.name] = {output: None for output in outputs}
 
             for output in function.outputs:
-                app["watch"][output] = function.name + outputs[0]
+                app["watch"]["components." + output] = function.name + "." + outputs[0]
 
             # Change triggers
             for t in triggers:
