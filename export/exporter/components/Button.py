@@ -23,6 +23,7 @@ class Button(Component):
         self.createBinding(comp["binding"], "height")
         self.createBinding(comp["binding"], "row")
         self.createBinding(comp["binding"], "column")
+        self.createBinding(comp["binding"], "position")
 
         self.createBinding(comp["binding"], "text")
         self.createBinding(comp["binding"], "page")

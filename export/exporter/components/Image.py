@@ -22,6 +22,7 @@ class Image(Component):
         self.createBinding(comp["binding"], "dim")
         self.createBinding(comp["binding"], "text")
         self.createBinding(comp["binding"], "file")
+        self.createBinding(comp["binding"], "position")
 
         # Properties
         comp["html"] = self.html(comp["binding"])
