@@ -2,7 +2,6 @@ from pybars import Compiler
 compiler = Compiler()
 from export.exporter.components.Components import componentsClass
 from export.exporter.functions.Functions import functionClass
-from export.exporter.Trigger import Trigger
 from export.exporter.components.Dimension import Dimension
 import json
 
@@ -28,33 +27,43 @@ class App:
             'components': {},
             'watch': {},
             'genItems': {},
+            'functionObj': {},
             'logic': {"functions": {}, "methods": {}}
         }
         app["info"] = self.info
 
         for function in self.functions:
-            f, triggers = function.generate()
-            app["logic"]["functions"][f["name"]] = f
+            f, triggers, funcObj = function.generate()
+            app["logic"]["methods"][f["name"]] = f
+            app["functionObj"][function.name] = funcObj
 
             # Change triggers
             for t in triggers:
                 if t not in self.triggers:
                     raise Exception("Gave wrong trigger!")
-
                 self.triggers[t]["functions"] += [f["name"]]
 
 
         for comp in self.comps:
-            compName, compDict, isList = comp.generate()
+            triggerForComp = self.getTriggersFor(comp.name)
+            compName, compDict, isList = comp.generate(triggerForComp)
             if isList:
                 app["genItems"][compName] = compDict["genItems"]
 
             app["components"][compName] = compDict
 
-
-
         print(self.html(app, helpers=helpers))
         return self.html(app, helpers=helpers)
+
+    def getTriggersFor(self, compName):
+        triggers = {}
+        for name, trigger in self.triggers.items():
+            if trigger["component"] == compName:
+                triggers[trigger["action"]] = trigger["functions"]
+
+        return triggers
+
+
 
     def createComponents(self, components):
         comps = []
@@ -73,11 +82,11 @@ class App:
         return funcs
 
     def createTriggers(self, triggers):
-        triggers = {}
+        trggers = {}
         for name, info in triggers.items():
-            triggers[name] = {
+            trggers[name] = {
                 "functions": [],
                 "component": info["component"],
                 "action": info["action"]
             }
-        return triggers
+        return trggers

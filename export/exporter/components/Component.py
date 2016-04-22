@@ -42,5 +42,5 @@ class Component:
             else:
                 bindings[bindingName] = "compdata." + self.name + "." + bindingName
 
-    def generate(self):
+    def generate(self, triggers):
         abstract

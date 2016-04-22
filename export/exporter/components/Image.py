@@ -11,7 +11,7 @@ class Image(Component):
     def parseImageProps(self, props):
         self.file = props["file"]
 
-    def generate(self):
+    def generate(self, triggers):
         comp = {}
         comp["type"] = "Textbox"
         comp["binding"] = {}

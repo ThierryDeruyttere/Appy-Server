@@ -11,7 +11,7 @@ class Label(Component):
     def parseLabelComponent(self, props):
         self.text = props["text"]
 
-    def generate(self):
+    def generate(self, triggers):
         comp = {}
         comp["type"] = "Label"
         comp["binding"] = {}

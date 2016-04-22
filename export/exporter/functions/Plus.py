@@ -8,11 +8,12 @@ class Plus(Function):
     def generate(self):
         data = {
             "name": self.name,
-            "left": self.params["left"],
-            "right": self.params["right"]
+            "left": "components." + self.params["left"],
+            "right": "components." + self.params["right"]
         }
 
         return {
-            "name": "computed_" + self.name,
+            "name": "method_" + self.name,
             "js": self.js(data)
-        }, self.triggers
+        }, self.triggers, {"result": None}
+

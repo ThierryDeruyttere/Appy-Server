@@ -10,7 +10,7 @@ class Textbox(Component):
     def parseTextboxProps(self, props):
         self.text = props["text"]
 
-    def generate(self):
+    def generate(self, triggers):
         comp = {}
         comp["type"] = "Textbox"
         comp["binding"] = {}

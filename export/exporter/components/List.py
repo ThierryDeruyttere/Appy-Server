@@ -26,7 +26,7 @@ class List(Component):
             compType = comp["type"]
             self.newItemComponents.append(componentsClass[compType](name, comp, True, self.dim))
 
-    def generate(self):
+    def generate(self, triggers):
         comp = {}
         comp["type"] = "List"
         comp["binding"] = {}

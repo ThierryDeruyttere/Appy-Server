@@ -10,7 +10,7 @@ class Button(Component):
     def parseButtonProps(self, props):
         self.text = props["text"]
 
-    def generate(self):
+    def generate(self, triggers):
         comp = {}
         comp["type"] = "Button"
         comp["binding"] = {}
@@ -29,6 +29,11 @@ class Button(Component):
         self.createBinding(comp["binding"], "page")
 
         # Properties
+        if 'click' in triggers:
+            f = triggers["click"]
+            comp["binding"]["click"] = f[0]
+
         comp["html"] = self.html(comp["binding"])
+
 
         return self.name, comp, self.inList
