@@ -15,4 +15,4 @@ class Plus(Function):
         return {
             "name": "computed_" + self.name,
             "js": self.js(data)
-        }
+        }, self.triggers

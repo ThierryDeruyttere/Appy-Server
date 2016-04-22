@@ -2,7 +2,7 @@ from pybars import Compiler
 compiler = Compiler()
 from export.exporter.components.Components import componentsClass
 from export.exporter.functions.Functions import functionClass
-
+from export.exporter.Trigger import Trigger
 from export.exporter.components.Dimension import Dimension
 import json
 
@@ -21,7 +21,7 @@ class App:
         self.comps = self.createComponents(appData['components'])
         self.info = appData["info"]
         self.functions = self.createFunctions(appData["logic"]["functions"])
-        self.triggers = appData["logic"]["triggers"]
+        self.triggers = self.createTriggers(appData["logic"]["triggers"])
 
     def generate(self):
         app = {
@@ -32,6 +32,17 @@ class App:
         }
         app["info"] = self.info
 
+        for function in self.functions:
+            f, triggers = function.generate()
+            app["logic"]["functions"][f["name"]] = f
+
+            # Change triggers
+            for t in triggers:
+                if t not in self.triggers:
+                    raise Exception("Gave wrong trigger!")
+
+                self.triggers[t]["functions"] += [f["name"]]
+
 
         for comp in self.comps:
             compName, compDict, isList = comp.generate()
@@ -40,11 +51,6 @@ class App:
 
             app["components"][compName] = compDict
 
-        for function in self.functions:
-            f = function.generate()
-            app["logic"]["functions"][f["name"]] = f
-
-            print(app["logic"]["functions"])
 
 
         print(self.html(app, helpers=helpers))
@@ -65,3 +71,13 @@ class App:
             print(name, function)
             funcs.append(functionClass[funcType](name, function))
         return funcs
+
+    def createTriggers(self, triggers):
+        triggers = {}
+        for name, info in triggers.items():
+            triggers[name] = {
+                "functions": [],
+                "component": info["component"],
+                "action": info["action"]
+            }
+        return triggers
