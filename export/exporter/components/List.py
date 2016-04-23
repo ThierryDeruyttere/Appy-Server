@@ -48,7 +48,7 @@ class List(Component):
         comp["genItems"]["html"] = ""
 
         for genitem in self.newItemComponents:
-            _, compData = genitem.generate()
+            _, compData, _ = genitem.generate(triggers)
             comp["genItems"]["html"] += compData["html"]
 
         # Properties
