@@ -27,4 +27,4 @@ class Image(Component):
         # Properties
         comp["html"] = self.html(comp["binding"])
 
-        return self.name, comp,self.inList
+        return self.name, comp, self.inList

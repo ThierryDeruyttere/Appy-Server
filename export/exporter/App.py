@@ -1,11 +1,13 @@
+import json
+
 from pybars import Compiler
-compiler = Compiler()
+
 from export.exporter.components.Components import componentsClass
 from export.exporter.functions.Functions import functionClass
 from export.exporter.components.Dimension import Dimension
-import json
-
 from export.utils import readFile
+
+compiler = Compiler()
 
 def _json(self, context):
     return json.dumps(context)
@@ -33,16 +35,18 @@ class App:
         app["info"] = self.info
 
         for function in self.functions:
-            f, triggers, funcObj = function.generate()
+            f, triggers, outputs = function.generate()
             app["logic"]["methods"][f["name"]] = f
-            app["functionObj"][function.name] = funcObj
+            app["functionObj"][function.name] = {output: None for output in outputs}
+
+            for output in function.outputs:
+                app["watch"]["components." + output] = function.name + "." + outputs[0]
 
             # Change triggers
             for t in triggers:
                 if t not in self.triggers:
                     raise Exception("Gave wrong trigger!")
                 self.triggers[t]["functions"] += [f["name"]]
-
 
         for comp in self.comps:
             triggerForComp = self.getTriggersFor(comp.name)
@@ -52,7 +56,7 @@ class App:
 
             app["components"][compName] = compDict
 
-        print(self.html(app, helpers=helpers))
+        # print(self.html(app, helpers=helpers))
         return self.html(app, helpers=helpers)
 
     def getTriggersFor(self, compName):
@@ -63,14 +67,13 @@ class App:
 
         return triggers
 
-
-
     def createComponents(self, components):
         comps = []
         for componentName in components:
             component = components[componentName]
             compType = component['type']
             comps.append(componentsClass[compType](componentName, component))
+
         return comps
 
     def createFunctions(self, functions):

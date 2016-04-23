@@ -9,6 +9,7 @@ class Function:
         self.triggers = info["triggers"]
         self.params = info["parameters"]
         self.type = info["type"]
+        self.outputs = info["outputs"] if "outputs" in info else []
 
     def generate(self):
         abstract
