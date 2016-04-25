@@ -92,6 +92,7 @@ def setComponentBindings(name, component):
 def export(path):
     app_description = None
     app_description = json.load(open(path, 'r'))
+
     # app_description = parseProperties(app_description)
     app_description['logic']['methods'] = {}
 

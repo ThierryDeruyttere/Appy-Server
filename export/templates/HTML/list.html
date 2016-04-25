@@ -1,6 +1,3 @@
-<div :style="{position: 'absolute', overflow: 'hidden', width: {{dim}}.width/app.width*100+'%', height: {{dim}}.height/app.height*100+'%', top: {{dim}}.row/app.height*100+'%', left: {{dim}}.col/app.width*100+'%'}">
-    <ul v-show="{{visibility}}">
-        <{{itemcomponent}} v-for="component in {{ genitems }}" :component.sync="component"></{{itemcomponent}}>
-      </li>
-    </ul>
+<div :style="{position: {{position}}, overflow: 'hidden', width: {{width}}, height: {{height}}, top: {{row}}, left: {{column}}}" v-show="{{visibility}}">
+  <{{itemcomponent}} v-for="component in {{ genitems }}" :compdata.sync="component.data" :app.sync="app"></{{itemcomponent}}>
 </div>

@@ -15,7 +15,6 @@
       <!-- {{!{{#each pages}}}} -->
       <!-- {{!<div class="page" v-if="activePage == '{{@key}}'" style="width: 100%; height: 100%;">}} -->
         <div v-for="(name, component) in components">
-          eh
           <partial :name="name"></div>
         </div>
       <!-- {{!</div>}} -->
@@ -25,7 +24,7 @@
       <div hidden v-text="{{this.name}}"></div>
       {{/each}}
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
@@ -35,13 +34,16 @@
       Vue.partial("{{@key}}", {{{json this.html}}})
       {{/each}}
 
-      {{#each lists}}
+      {{#each genItems}}
       var {{itemcomponent}} = Vue.extend({
         template: {{{json this.html}}},
-        data: {
-          {{#each components}}
-          {{@key}}: {{{json this.properties}}},
-          {{/each}}
+        props: ["compdata" , "app"],
+        data: function() {
+          return {
+            {{#each components}}
+            {{@key}}: {{{json this.properties}}},
+            {{/each}}
+          }
         }
       })
       Vue.component("{{itemcomponent}}", {{itemcomponent}})
@@ -55,7 +57,10 @@
             {{#each components}}
             {{@key}}: {{{json this.properties}}},
             {{/each}}
-          }
+          },
+            {{#each functionObj}}
+            {{@key}}: {{{json this}}},
+            {{/each}}
         },
         computed: {
           {{#each logic.functions}}
@@ -64,7 +69,7 @@
         },
         methods: {
           {{#each logic.methods}}
-          {{@key}}: {{{this}}},
+          {{@key}}: {{{this.js}}},
           {{/each}}
         },
       })
