@@ -4,6 +4,6 @@ from export.exporter.functions.RemoveListItem import RemoveListItem
 
 functionClass = {
     "Plus": Plus
-    "Plus": AddListItem
-    "Plus": RemoveListItem
+    "AddListItem": AddListItem
+    "RemoveListItem": RemoveListItem
 }
