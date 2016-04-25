@@ -1,6 +1,8 @@
 # All generated appys
 appys/
 
+*.sqlite3
+
 # Other generated files
 templates/output.html
 export/input.html
