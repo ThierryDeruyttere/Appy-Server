@@ -7,6 +7,7 @@ class AddListItem(Function):
 
     def generate(self):
         data = {
+            'list': self.outputs[0]['name']
         }
 
         return {
