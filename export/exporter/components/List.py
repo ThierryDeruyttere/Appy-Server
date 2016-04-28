@@ -47,12 +47,11 @@ class List(Component):
         comp["genItems"]["itemcomponent"] = self.name.lower() + "_component"
         comp["genItems"]["html"] = "<div class=\"listItem\">"
 
-        #Add vm to triggers
-
+        # Add vm to triggers
         for key, val in triggers.items():
             d = []
             for t in val:
-                d.append('vm.' + t)
+                d.append('vm.' + t + '(this)')
 
             triggers[key] = d
 

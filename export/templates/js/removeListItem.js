@@ -1,5 +1,5 @@
-function(el) {
-  var containing_element = $(el).closest(".listItem");
+function(vm) {
+  var containing_element = $(vm.$el).closest(".listItem");
   // Option 1: JQuery.index()
   var idx = containing_element.index();
   // option 2: data- attribute
