@@ -1,18 +1,12 @@
-import json
 
 from pybars import Compiler
-
 from export.exporter.components.Components import componentsClass
 from export.exporter.functions.Functions import functionClass
 from export.exporter.components.Dimension import Dimension
 from export.utils import readFile
-
+from export.exporter.Helpers import helpers
 compiler = Compiler()
 
-def _json(self, context):
-    return json.dumps(context)
-
-helpers = {'json': _json}
 
 class App:
 
@@ -21,7 +15,7 @@ class App:
         Dimension.setAppDims(appData["info"]["width"], appData["info"]["height"])
         self.comps = self.createComponents(appData['components'])
         self.info = appData["info"]
-        self.functions = self.createFunctions(appData["logic"]["functions"])
+        self.functions = self.createFunctions(appData["logic"]["functions"], appData['components'])
         self.triggers = self.createTriggers(appData["logic"]["triggers"])
 
     def generate(self):
@@ -39,8 +33,9 @@ class App:
             app["logic"]["methods"][f["name"]] = f
             app["functionObj"][function.name] = {output: None for output in outputs}
 
-            for output in function.outputs:
-                app["watch"]["components." + output] = function.name + "." + outputs[0]
+            if len(outputs) == 1:
+                for output in function.outputs:
+                    app["watch"]["components." + output] = function.name + "." + outputs[0]
 
             # Change triggers
             for t in triggers:
@@ -76,12 +71,19 @@ class App:
 
         return comps
 
-    def createFunctions(self, functions):
+    def createFunctions(self, functions, comps):
         funcs = []
         for name, function in functions.items():
             funcType = function["type"]
             print(name, function)
-            funcs.append(functionClass[funcType](name, function))
+            if funcType == "AddListItem":
+                componentName = function["outputs"][0]["name"]
+                component = comps[componentName]
+                compType = component['type']
+                listComp = componentsClass[compType](componentName, component)
+                funcs.append(functionClass[funcType](name, function, listComp))
+            else:
+                funcs.append(functionClass[funcType](name, function))
         return funcs
 
     def createTriggers(self, triggers):
