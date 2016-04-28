@@ -57,7 +57,7 @@ class App:
     def getTriggersFor(self, compName):
         triggers = {}
         for name, trigger in self.triggers.items():
-            if trigger["component"] == compName:
+            if trigger["component"] == compName or compName in trigger["component"]:
                 triggers[trigger["action"]] = trigger["functions"]
 
         return triggers
@@ -76,7 +76,7 @@ class App:
         for name, function in functions.items():
             funcType = function["type"]
             print(name, function)
-            if funcType == "AddListItem":
+            if funcType == "AddListItem" or funcType == "RemoveListItem":
                 componentName = function["outputs"][0]["name"]
                 component = comps[componentName]
                 compType = component['type']
