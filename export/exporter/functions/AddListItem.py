@@ -22,7 +22,7 @@ class AddListItem(Function):
         for comp in  self.list.newItemComponents:
             data[comp.name] = {}
             for key, prop in comp.props.items():
-                if type(prop) is type({}):
+                if type(prop) is type({}) and "value" in prop:
                     data[comp.name][key] = prop["value"]
                 else:
                     data[comp.name][key] = prop
