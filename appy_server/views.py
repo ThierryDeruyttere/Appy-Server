@@ -16,7 +16,7 @@ from export.exporter.App import App
 
 @xframe_options_exempt
 def home(request):
-    return render(request, 'output.html')
+    return render(request, 'home.html')
 
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
