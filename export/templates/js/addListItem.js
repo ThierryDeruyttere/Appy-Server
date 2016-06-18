@@ -1,12 +1,12 @@
 function() {
   this.index += 1;
   new_item = {
-    index: this.index
-    data: {{default_data}}
+    index: this.index,
+    data: {{{json default_data }}}
   }
   {{#each inputs}}
-  new_item[{{out_component}}].{{out_data}} = {{in_data}}
+  new_item.data["{{out_component}}"].{{out_data}} = this.components.{{in_data}}
   {{/each}}
 
-  this.{{list}}.genitems.append(new_item);
+  this.components.{{list}}.genitems.push(new_item);
 }

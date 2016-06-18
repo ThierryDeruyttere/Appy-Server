@@ -1,12 +1,13 @@
 from .Function import *
 
 class RemoveListItem(Function):
-    def __init__(self, name, info):
+    def __init__(self, name, info, list):
         Function.__init__(self, name, info)
         self.js = compiler.compile(readFile("export/templates/js/removeListItem.js"))
+        self.list = list
 
     def generate(self):
-        data = {
+        data = { 'list': self.list.name,
         }
 
         return {
