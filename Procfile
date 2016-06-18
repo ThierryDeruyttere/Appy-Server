@@ -1,2 +1,1 @@
-web: python manage.py runserver 0.0.0.0:$PORT --noreload
-
+web: gunicorn appy_server.wsgi:application --log-file -
